@@ -1,36 +1,14 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
+import { HappyCloud, FloatingStar } from './CartoonIllustrations';
 
-// Context-aware messages based on time, performance, and streak
-const getContextualMessages = (hour: number, streak: number, avgAccuracy: number) => {
-  const timeOfDay = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
-  const greeting = timeOfDay === 'morning' ? 'Good morning' : timeOfDay === 'afternoon' ? 'Good afternoon' : 'Good evening';
-  
-  const baseMessages = [
-    { id: 1, text: `${greeting}! Ready to learn today? 😊`, mood: 'happy' },
-    { id: 2, text: `Wow! Your scores are improving 🔥`, mood: 'excited' },
-    { id: 3, text: `You might want to check your Geography accuracy!`, mood: 'thoughtful' },
-    { id: 4, text: `Keep going — you're on a ${streak}-day streak 🚀`, mood: 'motivating' },
-    { id: 5, text: `That Math score was AMAZING! 💯`, mood: 'celebrating' },
-  ];
-
-  // Add contextual messages based on performance
-  if (avgAccuracy >= 90) {
-    baseMessages.push({ id: 6, text: `You're crushing it with ${avgAccuracy}% accuracy! 🌟`, mood: 'celebrating' });
-  } else if (avgAccuracy < 80) {
-    baseMessages.push({ id: 7, text: `Let's aim for 85%+ today! You've got this! 💪`, mood: 'motivating' });
-  }
-
-  if (streak >= 7) {
-    baseMessages.push({ id: 8, text: `${streak} days in a row! You're unstoppable! 🔥`, mood: 'excited' });
-  } else if (streak >= 3) {
-    baseMessages.push({ id: 9, text: `Nice ${streak}-day streak! Keep it going! 🎯`, mood: 'happy' });
-  }
-
-  return baseMessages;
-};
-
-const messages = getContextualMessages(new Date().getHours(), 7, 88);
+const messages = [
+  { id: 1, text: "Hey! Hope you're doing great today 😊", mood: 'happy' },
+  { id: 2, text: "Wow! Your scores are improving 🔥", mood: 'excited' },
+  { id: 3, text: "You might want to check your Geography accuracy!", mood: 'thoughtful' },
+  { id: 4, text: "Keep going — you're on a 7-day streak 🚀", mood: 'motivating' },
+  { id: 5, text: "That Math score was AMAZING! 💯", mood: 'celebrating' },
+];
 
 export function QbitCompanion() {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
@@ -50,16 +28,15 @@ export function QbitCompanion() {
     return (
       <button
         onClick={() => setIsMinimized(false)}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform flex items-center justify-center border-4 border-white animate-bounce z-50 touch-manipulation"
-        aria-label="Open Qbit Companion"
+        className="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center border-4 border-white animate-bounce z-50"
       >
-        <span className="text-2xl sm:text-3xl">🤖</span>
+        <span className="text-3xl">🤖</span>
       </button>
     );
   }
 
   return (
-    <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl p-4 sm:p-6 shadow-lg border-4 border-cyan-200 relative overflow-hidden lg:sticky lg:top-24">
+    <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl p-6 shadow-lg border-4 border-cyan-200 relative overflow-hidden sticky top-24">
       {/* Close Button */}
       <button
         onClick={() => setIsMinimized(true)}
@@ -71,19 +48,25 @@ export function QbitCompanion() {
       {/* Decorative Background */}
       <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-200/30 rounded-full -translate-y-12 translate-x-12"></div>
       <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-200/30 rounded-full translate-y-16 -translate-x-16"></div>
+      
+      {/* Fun cartoon decorations */}
+      <div className="absolute top-4 left-4 opacity-15 animate-float">
+        <HappyCloud className="w-16 h-10 text-cyan-400" />
+      </div>
+      <div className="absolute bottom-4 right-4 opacity-15 animate-gentle-bounce">
+        <FloatingStar className="w-10 h-10 text-blue-400" />
+      </div>
 
       <div className="relative z-10">
         {/* Qbit Character */}
         <div className="flex justify-center mb-4">
           <div className="relative">
             {/* Qbit Robot */}
-            <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-lg transform hover:rotate-6 hover:scale-110 transition-all duration-300 border-4 border-white cursor-pointer">
-              <span className="text-5xl animate-in zoom-in duration-500">🤖</span>
+            <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-lg transform hover:rotate-6 transition-transform border-4 border-white">
+              <span className="text-5xl">🤖</span>
             </div>
             {/* Animated Pulse */}
             <div className="absolute inset-0 bg-cyan-400 rounded-3xl animate-ping opacity-20"></div>
-            {/* Subtle glow effect */}
-            <div className="absolute inset-0 bg-cyan-400 rounded-3xl animate-pulse opacity-10"></div>
           </div>
         </div>
 
@@ -96,11 +79,11 @@ export function QbitCompanion() {
         </div>
 
         {/* Message Bubble */}
-        <div className="bg-white rounded-2xl p-4 shadow-md border-2 border-cyan-200 mb-4 relative animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <div className="bg-white rounded-2xl p-4 shadow-md border-2 border-cyan-200 mb-4 relative">
           {/* Speech Bubble Tail */}
           <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-l-2 border-t-2 border-cyan-200 transform rotate-45"></div>
           
-          <p key={currentMessage.id} className="text-sm text-gray-800 font-medium text-center leading-relaxed animate-in fade-in duration-300">
+          <p className="text-sm text-gray-800 font-medium text-center leading-relaxed">
             {currentMessage.text}
           </p>
         </div>

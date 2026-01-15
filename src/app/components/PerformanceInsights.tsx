@@ -1,5 +1,6 @@
 import { TrendingUp, TrendingDown, Sparkles } from 'lucide-react';
 import { useState } from 'react';
+import { BookCharacter, LightBulb, TrophyIcon } from './CartoonIllustrations';
 
 const subjectData = [
   { subject: 'Math', accuracy: 92, color: '#3b82f6', emoji: '📐', status: 'strong' },
@@ -47,45 +48,76 @@ export function PerformanceInsights() {
       </div>
 
       {/* Chart */}
-      <div className="mb-6 bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6">
+      <div className="mb-6 bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 relative overflow-hidden">
+        {/* Fun background decorations */}
+        <div className="absolute top-4 right-4 opacity-10 animate-float">
+          <BookCharacter className="w-20 h-24 text-purple-400" />
+        </div>
+        <div className="absolute bottom-4 left-4 opacity-10 animate-float-reverse">
+          <LightBulb className="w-16 h-20 text-blue-400" />
+        </div>
+        
+        <div className="relative z-10">
         {viewMode === 'bar' ? (
-          <div className="space-y-4">
-            {subjectData.map((subject, index) => {
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {subjectData.map((subject) => {
+              const circumference = 2 * Math.PI * 36; // radius = 36
+              const offset = circumference - (subject.accuracy / 100) * circumference;
               const isStrong = subject.accuracy >= 90;
               const isImproving = subject.accuracy >= 85 && subject.accuracy < 90;
-              const needsWork = subject.accuracy < 85;
               
               return (
-                <div key={subject.subject} className="space-y-2 animate-in fade-in slide-in-from-left-4" style={{ animationDelay: `${index * 100}ms` }}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">{subject.emoji}</span>
-                      <span className="text-sm font-semibold text-gray-700">
-                        {subject.subject}
-                      </span>
-                      {isStrong && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">Strong</span>}
-                      {isImproving && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">Improving</span>}
-                      {needsWork && <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">Needs Work</span>}
+                <div 
+                  key={subject.subject} 
+                  className="bg-white rounded-2xl p-4 shadow-sm border-2 border-gray-100 hover:border-purple-200 transition-all hover:shadow-md"
+                >
+                  <div className="flex flex-col items-center">
+                    {/* Circular Progress Ring */}
+                    <div className="relative w-24 h-24 mb-3">
+                      <svg className="transform -rotate-90 w-24 h-24">
+                        {/* Background circle */}
+                        <circle
+                          cx="48"
+                          cy="48"
+                          r="36"
+                          stroke="currentColor"
+                          strokeWidth="8"
+                          fill="none"
+                          className="text-gray-200"
+                        />
+                        {/* Progress circle */}
+                        <circle
+                          cx="48"
+                          cy="48"
+                          r="36"
+                          stroke={subject.color}
+                          strokeWidth="8"
+                          fill="none"
+                          strokeDasharray={circumference}
+                          strokeDashoffset={offset}
+                          strokeLinecap="round"
+                          className="transition-all duration-700"
+                          style={{ filter: 'drop-shadow(0 0 3px ' + subject.color + '40)' }}
+                        />
+                      </svg>
+                      {/* Center content */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <span className="text-2xl">{subject.emoji}</span>
+                        <span className="text-xs font-bold text-gray-700 mt-0.5">{subject.accuracy}%</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {isStrong && <span className="text-lg">⬆️</span>}
-                      {isImproving && <span className="text-lg">➡️</span>}
-                      {needsWork && <span className="text-lg">⬇️</span>}
-                      <span className="text-sm font-bold text-gray-800">
-                        {subject.accuracy}%
-                      </span>
-                    </div>
-                  </div>
-                  <div className="bg-gray-200 rounded-full h-4 overflow-hidden relative">
-                    <div
-                      className="h-full rounded-full transition-all duration-700 ease-out relative"
-                      style={{ 
-                        width: `${subject.accuracy}%`,
-                        backgroundColor: subject.color
-                      }}
-                    >
-                      {/* Shine effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                    {/* Subject name and status */}
+                    <div className="text-center">
+                      <div className="font-bold text-sm text-gray-800 mb-1">{subject.subject}</div>
+                      <div className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                        isStrong 
+                          ? 'bg-green-100 text-green-700' 
+                          : isImproving 
+                          ? 'bg-blue-100 text-blue-700' 
+                          : 'bg-orange-100 text-orange-700'
+                      }`}>
+                        {isStrong ? 'Excellent' : isImproving ? 'Good' : 'Keep Going'}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -155,18 +187,23 @@ export function PerformanceInsights() {
             </svg>
           </div>
         )}
+        </div>
       </div>
 
       {/* Insights Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Strong Subjects */}
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 border-2 border-green-200">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="font-bold text-green-800">You're crushing it! 💪</h3>
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 border-2 border-green-200 relative overflow-hidden">
+          <div className="absolute top-2 right-2 opacity-15 animate-gentle-bounce">
+            <TrophyIcon className="w-12 h-14 text-green-500" />
           </div>
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="font-bold text-green-800">You're crushing it!</h3>
+            </div>
           <div className="space-y-2">
             {strongSubjects.map((subject) => (
               <div key={subject.subject} className="flex items-center gap-2">
@@ -176,6 +213,7 @@ export function PerformanceInsights() {
                 </span>
               </div>
             ))}
+          </div>
           </div>
         </div>
 

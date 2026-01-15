@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Calendar, Trophy, Target, TrendingUp } from 'lucide-react';
-import { EmptyState } from './EmptyState';
+import { RocketShip, FloatingStar } from './CartoonIllustrations';
 
 const journeyData = {
   5: [
@@ -45,17 +45,21 @@ const colorClasses = {
   yellow: 'bg-yellow-500',
 };
 
-interface QuizizzJourneyProps {
-  data?: typeof journeyData;
-}
-
-export function QuizizzJourney({ data }: QuizizzJourneyProps = {} as QuizizzJourneyProps) {
+export function QuizizzJourney() {
   const [activeFilter, setActiveFilter] = useState<5 | 10 | 30>(5);
-  const journeyDataToUse = data || journeyData;
-  const items = journeyDataToUse[activeFilter];
+  const items = journeyData[activeFilter];
 
   return (
-    <section className="bg-white rounded-3xl p-6 shadow-lg border-4 border-purple-100">
+    <section className="bg-white rounded-3xl p-6 shadow-lg border-4 border-purple-100 relative overflow-hidden">
+      {/* Fun background decorations */}
+      <div className="absolute top-6 right-6 opacity-10 animate-float">
+        <RocketShip className="w-16 h-20 text-purple-400" />
+      </div>
+      <div className="absolute bottom-6 left-6 opacity-10 animate-float-reverse">
+        <FloatingStar className="w-12 h-12 text-pink-400" />
+      </div>
+      
+      <div className="relative z-10">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
           <span className="text-3xl">🚀</span>
@@ -87,16 +91,7 @@ export function QuizizzJourney({ data }: QuizizzJourneyProps = {} as QuizizzJour
 
       {/* Journey Timeline */}
       <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
-        {items.length === 0 ? (
-          <EmptyState
-            emoji="🚀"
-            title="No Journey Yet"
-            message="Start playing quizzes and games to build your learning journey!"
-            actionLabel="Play Your First Quiz"
-            onAction={() => console.log('Navigate to quizzes')}
-          />
-        ) : (
-          items.map((item, index) => (
+        {items.map((item, index) => (
           <div
             key={item.id}
             className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-4 hover:shadow-md transition-all duration-200 cursor-pointer group border-2 border-transparent hover:border-purple-200"
@@ -126,25 +121,72 @@ export function QuizizzJourney({ data }: QuizizzJourneyProps = {} as QuizizzJour
                   </span>
                 </div>
 
-                {/* Progress Bar */}
+                {/* Visual Performance Indicator */}
                 <div className="flex items-center gap-3">
-                  <div className="flex-1 bg-gray-200 rounded-full h-2.5 overflow-hidden">
-                    <div
-                      className={`h-full rounded-full ${colorClasses[item.color]} transition-all duration-700 ease-out`}
-                      style={{ 
-                        width: `${item.accuracy}%`
-                      }}
-                    ></div>
+                  {/* Circular mini progress */}
+                  <div className="relative w-12 h-12 flex-shrink-0">
+                    <svg className="transform -rotate-90 w-12 h-12">
+                      <circle
+                        cx="24"
+                        cy="24"
+                        r="18"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                        className="text-gray-200"
+                      />
+                      <circle
+                        cx="24"
+                        cy="24"
+                        r="18"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                        strokeDasharray={2 * Math.PI * 18}
+                        strokeDashoffset={2 * Math.PI * 18 * (1 - item.accuracy / 100)}
+                        strokeLinecap="round"
+                        className={`transition-all duration-700 ${
+                          item.accuracy >= 90 
+                            ? 'text-yellow-500' 
+                            : item.accuracy >= 85 
+                            ? 'text-green-500' 
+                            : 'text-blue-500'
+                        }`}
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      {item.accuracy >= 90 ? (
+                        <Trophy className="w-4 h-4 text-yellow-500" />
+                      ) : item.accuracy >= 85 ? (
+                        <Target className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <TrendingUp className="w-4 h-4 text-blue-500" />
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    {item.accuracy >= 90 ? (
-                      <Trophy className="w-4 h-4 text-yellow-500" />
-                    ) : item.accuracy >= 85 ? (
-                      <Target className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <TrendingUp className="w-4 h-4 text-blue-500" />
-                    )}
-                    <span className="font-bold text-sm text-gray-700">
+                  
+                  {/* Visual score blocks */}
+                  <div className="flex-1 flex items-center gap-1">
+                    {Array.from({ length: 10 }).map((_, i) => {
+                      const filled = (i + 1) * 10 <= item.accuracy;
+                      const partial = (i + 1) * 10 - 10 < item.accuracy && (i + 1) * 10 > item.accuracy;
+                      return (
+                        <div
+                          key={i}
+                          className={`flex-1 h-3 rounded-full transition-all duration-300 ${
+                            filled
+                              ? colorClasses[item.color]
+                              : partial
+                              ? `${colorClasses[item.color]} opacity-50`
+                              : 'bg-gray-200'
+                          }`}
+                        ></div>
+                      );
+                    })}
+                  </div>
+                  
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-bold text-sm text-gray-800 min-w-[3rem] text-right">
                       {item.accuracy}%
                     </span>
                   </div>
@@ -152,8 +194,8 @@ export function QuizizzJourney({ data }: QuizizzJourneyProps = {} as QuizizzJour
               </div>
             </div>
           </div>
-          ))
-        )}
+        ))}
+      </div>
       </div>
     </section>
   );

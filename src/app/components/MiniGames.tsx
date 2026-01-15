@@ -1,5 +1,5 @@
 import { Swords, Sparkles, Users } from 'lucide-react';
-import { EmptyState } from './EmptyState';
+import { FloatingStar } from './CartoonIllustrations';
 
 const games = [
   {
@@ -37,35 +37,7 @@ const games = [
   },
 ];
 
-interface MiniGamesProps {
-  games?: typeof games;
-}
-
-export function MiniGames({ games: gamesProp }: MiniGamesProps = {} as MiniGamesProps) {
-  const gamesList = gamesProp || games;
-
-  if (gamesList.length === 0) {
-    return (
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-            <span className="text-3xl">🎮</span>
-            Mini Games
-          </h2>
-        </div>
-        <div className="bg-white rounded-3xl p-6 shadow-lg border-4 border-purple-100">
-          <EmptyState
-            emoji="🎮"
-            title="No Games Available"
-            message="Check back soon for exciting new mini games to play!"
-            actionLabel="Explore Quizzes"
-            onAction={() => console.log('Navigate to quizzes')}
-          />
-        </div>
-      </section>
-    );
-  }
-
+export function MiniGames() {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
@@ -74,19 +46,23 @@ export function MiniGames({ games: gamesProp }: MiniGamesProps = {} as MiniGames
           Mini Games
         </h2>
         <span className="text-sm text-purple-600 font-semibold bg-purple-100 px-3 py-1.5 rounded-full">
-          {gamesList.length} Available
+          3 Available
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {gamesList.map((game, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {games.map((game) => (
           <div
             key={game.id}
-            className={`bg-gradient-to-br ${game.bgGradient} rounded-3xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer border-4 border-white relative overflow-hidden group animate-in fade-in slide-in-from-bottom-4`}
-            style={{ animationDelay: `${index * 100}ms` }}
+            className={`bg-gradient-to-br ${game.bgGradient} rounded-3xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer border-4 border-white relative overflow-hidden group`}
           >
             {/* Decorative Background Elements */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/30 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
+            
+            {/* Fun cartoon decorations */}
+            <div className="absolute top-4 left-4 opacity-15 group-hover:opacity-25 transition-opacity animate-gentle-bounce">
+              <FloatingStar className="w-10 h-10 text-current" />
+            </div>
             
             <div className="relative z-10">
               {/* Icon */}

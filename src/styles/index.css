@@ -2,75 +2,42 @@
 @import './tailwind.css';
 @import './theme.css';
 
-/* Custom animations for enhanced UX */
-@keyframes progressFill {
-  from {
-    width: 0%;
-    opacity: 0.7;
+/* Fun floating animations for cartoon elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
   }
-  to {
-    width: var(--target-width, 100%);
-    opacity: 1;
+  50% {
+    transform: translateY(-10px) rotate(5deg);
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@keyframes floatReverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  50% {
+    transform: translateY(10px) rotate(-5deg);
   }
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
+@keyframes gentleBounce {
+  0%, 100% {
+    transform: translateY(0px);
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  50% {
+    transform: translateY(-5px);
   }
 }
 
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  /* Improve touch targets */
-  button, a {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  /* Better scrolling on mobile */
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
-/* Shimmer animation for progress bars */
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+.animate-float-reverse {
+  animation: floatReverse 4s ease-in-out infinite;
 }
 
-.animate-shimmer {
-  animation: shimmer 2s infinite;
-}
-
-/* Respect reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+.animate-gentle-bounce {
+  animation: gentleBounce 2s ease-in-out infinite;
 }
