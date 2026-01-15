@@ -41,3 +41,69 @@
 .animate-gentle-bounce {
   animation: gentleBounce 2s ease-in-out infinite;
 }
+
+/* Wiggle animation for surprise box */
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(-3deg) scale(1);
+  }
+  25% {
+    transform: rotate(3deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(-3deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(3deg) scale(1.05);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 0.3s ease-in-out infinite;
+}
+
+/* Confetti falling animation */
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.animate-confetti {
+  animation: confetti 3s ease-out forwards;
+}
+
+/* Shimmer effect for surprise box */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Sparkle burst */
+@keyframes sparkle-burst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-sparkle-burst {
+  animation: sparkle-burst 0.6s ease-out forwards;
+}

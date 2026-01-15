@@ -49,72 +49,95 @@ export function Achievements() {
   return (
     <section className="space-y-3">
       {/* Streak Card */}
-      <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-4 shadow-md border-2 border-white text-white">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-bold text-base">Current Streak</h3>
-          <Flame className="w-5 h-5" />
+      <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl border-2 border-white shadow-md p-4 text-white relative overflow-hidden">
+        <div className="absolute bottom-2 left-2 opacity-20">
+          <FloatingStar className="w-10 h-10 text-white" />
         </div>
-        <div className="text-center mb-2">
-          <div className="text-5xl font-black mb-1">{currentStreak}</div>
-          <div className="text-xs opacity-90 flex items-center justify-center gap-1">
-            <span>days in a row!</span>
-            <Flame className="w-3 h-3" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-semibold">Current Streak</h3>
+            <Flame className="w-4 h-4" />
           </div>
-        </div>
-        <div className="bg-white/20 rounded-lg p-2 backdrop-blur-sm">
-            <div className="flex items-center justify-between text-sm">
-              <span>Longest streak:</span>
-              <span className="font-bold">{longestStreak} days</span>
-            </div>
+          <div className="text-center">
+            <div className="text-4xl font-black mb-1">{currentStreak}</div>
+            <div className="text-xs opacity-90">days in a row</div>
           </div>
         </div>
       </div>
 
       {/* Badges */}
-      <div className="bg-white rounded-2xl p-4 shadow-md border-2 border-gray-100">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2">
-            <Award className="w-5 h-5 text-yellow-500" />
-            Badges
-          </h3>
-          <span className="text-sm font-semibold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">
-            {badges.filter(b => b.unlocked).length}/{badges.length}
-          </span>
+      <div className="bg-white rounded-xl border-2 border-yellow-100 shadow-md p-4 relative overflow-hidden">
+        <div className="absolute top-3 right-3 opacity-10">
+          <TrophyIcon className="w-12 h-14 text-yellow-400" />
         </div>
-
-        <div className="grid grid-cols-3 gap-3">
-          {badges.map((badge) => (
-            <div
-              key={badge.id}
-              className={`aspect-square rounded-2xl bg-gradient-to-br ${badge.color} flex flex-col items-center justify-center p-3 ${
-                badge.unlocked
-                  ? 'shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer'
-                  : 'opacity-40 grayscale'
-              }`}
-            >
-              <div className="mb-1 flex items-center justify-center">
-                {badge.iconType === 'perfect' ? (
-                  <span className="text-2xl font-black text-white">100</span>
-                ) : (
-                  <BadgeIcon type={badge.iconType} className="w-8 h-8 text-white" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-semibold text-gray-900">Badges</h3>
+            <span className="text-xs text-yellow-600 font-semibold bg-yellow-50 px-2 py-0.5 rounded-full">
+              {badges.filter(b => b.unlocked).length}/{badges.length}
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            {badges.map((badge) => (
+              <div
+                key={badge.id}
+                className={`aspect-square rounded-2xl bg-gradient-to-br ${badge.color} flex flex-col items-center justify-center p-3 relative overflow-hidden group ${
+                  badge.unlocked 
+                    ? 'shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer transition-all duration-300 border-2 border-white/50' 
+                    : 'opacity-40 grayscale border-2 border-gray-300'
+                }`}
+                style={badge.unlocked ? {
+                  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.3) inset'
+                } : {}}
+              >
+                {/* Shine effect for unlocked badges */}
+                {badge.unlocked && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute top-1 right-1 opacity-60">
+                      <FloatingStar className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="absolute bottom-1 left-1 opacity-40">
+                      <FloatingStar className="w-3 h-3 text-white" />
+                    </div>
+                  </>
+                )}
+                
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="mb-1.5 transform group-hover:scale-110 transition-transform duration-300">
+                    {badge.iconType === 'perfect' ? (
+                      <span className="text-xl font-black text-white drop-shadow-lg">100</span>
+                    ) : (
+                      <BadgeIcon type={badge.iconType} className="w-7 h-7 text-white drop-shadow-lg" />
+                    )}
+                  </div>
+                  <div className="text-xs font-bold text-white text-center leading-tight drop-shadow-md">
+                    {badge.name}
+                  </div>
+                </div>
+                
+                {/* Glow effect for unlocked badges */}
+                {badge.unlocked && (
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      boxShadow: '0 0 20px rgba(255, 255, 255, 0.4) inset, 0 0 30px rgba(255, 255, 255, 0.2)'
+                    }}
+                  ></div>
                 )}
               </div>
-              <div className="text-xs font-bold text-white text-center leading-tight">
-                {badge.name}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Milestones */}
-      <div className="bg-white rounded-2xl p-4 shadow-md border-2 border-gray-100">
-        <div className="flex items-center gap-2 mb-3">
-          <Crown className="w-5 h-5 text-purple-500" />
-          <h3 className="font-bold text-lg text-gray-800">Milestones</h3>
+      <div className="bg-white rounded-xl border-2 border-purple-100 shadow-md p-4 relative overflow-hidden">
+        <div className="absolute bottom-3 right-3 opacity-10">
+          <FloatingStar className="w-10 h-10 text-purple-400" />
         </div>
-
-        <div className="space-y-4">
+        <div className="relative z-10">
+        <h3 className="text-sm font-semibold text-gray-900 mb-3">Milestones</h3>
+        <div className="space-y-3">
           {milestones.map((milestone) => {
             const percentage = Math.min((milestone.value / milestone.target) * 100, 100);
             const Icon = milestone.icon;
@@ -190,6 +213,7 @@ export function Achievements() {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </section>

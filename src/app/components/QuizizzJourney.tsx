@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, Trophy, Target, TrendingUp } from 'lucide-react';
+import { Calendar, Trophy, Target, TrendingUp, TrendingDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { RocketShip, FloatingStar, MathIcon, ScienceIcon, HistoryIcon, EnglishIcon, GeographyIcon, BookCharacter } from './CartoonIllustrations';
 
 const getSubjectIcon = (subject: string) => {
@@ -48,6 +48,19 @@ const journeyData = {
   ],
 };
 
+// Calculate average accuracy for each period
+const calculateAverageAccuracy = (items: typeof journeyData[5]) => {
+  if (items.length === 0) return 0;
+  const sum = items.reduce((acc, item) => acc + item.accuracy, 0);
+  return Math.round(sum / items.length);
+};
+
+const accuracyStats = {
+  5: calculateAverageAccuracy(journeyData[5]),
+  10: calculateAverageAccuracy(journeyData[10]),
+  30: calculateAverageAccuracy(journeyData[30]),
+};
+
 const colorClasses = {
   blue: 'bg-blue-500',
   green: 'bg-green-500',
@@ -60,147 +73,105 @@ const colorClasses = {
 export function QuizizzJourney() {
   const [activeFilter, setActiveFilter] = useState<5 | 10 | 30>(5);
   const items = journeyData[activeFilter];
+  const currentAccuracy = accuracyStats[activeFilter];
+  
+  // Calculate trend (comparing with previous period)
+  const getTrend = () => {
+    if (activeFilter === 5) {
+      const diff = accuracyStats[5] - accuracyStats[10];
+      return { value: Math.abs(diff), isPositive: diff >= 0, label: 'vs Last 10 days' };
+    } else if (activeFilter === 10) {
+      const diff = accuracyStats[10] - accuracyStats[30];
+      return { value: Math.abs(diff), isPositive: diff >= 0, label: 'vs Last 30 days' };
+    } else {
+      // For 30 days, compare with overall average
+      const avg = (accuracyStats[5] + accuracyStats[10] + accuracyStats[30]) / 3;
+      const diff = accuracyStats[30] - avg;
+      return { value: Math.abs(diff), isPositive: diff >= 0, label: 'vs Average' };
+    }
+  };
+  
+  const trend = getTrend();
 
   return (
-    <section className="bg-white rounded-2xl p-4 shadow-md border-2 border-gray-100">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-          <RocketShip className="w-6 h-8 text-purple-500" />
-          <span>Your Learning Journey</span>
+    <section className="bg-white rounded-xl border-2 border-purple-100 shadow-md p-4 relative overflow-hidden">
+      <div className="absolute top-4 right-4 opacity-10">
+        <RocketShip className="w-14 h-18 text-purple-400" />
+      </div>
+      <div className="relative z-10">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-semibold text-gray-900 flex items-center gap-2">
+          <RocketShip className="w-5 h-6 text-purple-500" />
+          <span>Learning Journey</span>
         </h2>
-        <Calendar className="w-5 h-5 text-purple-500" />
+        <div className="flex gap-1 bg-gray-100 rounded p-0.5">
+          {[
+            { days: 5 as const, label: '5d' },
+            { days: 10 as const, label: '10d' },
+            { days: 30 as const, label: '30d' },
+          ].map((filter) => (
+            <button
+              key={filter.days}
+              onClick={() => setActiveFilter(filter.days)}
+              className={`px-2 py-1 rounded text-xs font-medium transition-all ${
+                activeFilter === filter.days
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600'
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex gap-2 mb-4 bg-gray-100 rounded-xl p-1">
+      {/* Accuracy Comparison Cards */}
+      <div className="grid grid-cols-3 gap-2 mb-4">
         {[
-          { days: 5 as const, label: 'Last 5 days' },
-          { days: 10 as const, label: 'Last 10 days' },
-          { days: 30 as const, label: 'Last 30 days' },
-        ].map((filter) => (
-          <button
-            key={filter.days}
-            onClick={() => setActiveFilter(filter.days)}
-            className={`flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
-              activeFilter === filter.days
-                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
-                : 'text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            {filter.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Journey Timeline */}
-      <div className="space-y-2 max-h-96 overflow-y-auto pr-2">
-        {items.map((item, index) => (
-          <div
-            key={item.id}
-            className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-3 hover:shadow-sm transition-all duration-200 cursor-pointer group border border-transparent hover:border-purple-200"
-          >
-            <div className="flex items-center gap-4">
-              {/* Timeline Dot */}
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  {(() => {
-                    const IconComponent = getSubjectIcon(item.iconType || item.subject);
-                    return <IconComponent className="w-7 h-7 text-purple-600" />;
-                  })()}
-                </div>
-                {index < items.length - 1 && (
-                  <div className="w-0.5 h-8 bg-purple-200 my-1"></div>
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <h3 className="font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
-                      {item.game}
-                    </h3>
-                    <p className="text-sm text-gray-600">{item.subject}</p>
-                  </div>
-                  <span className="text-xs text-gray-500 bg-white px-2.5 py-1 rounded-full">
-                    {item.date}
-                  </span>
-                </div>
-
-                {/* Visual Performance Indicator */}
-                <div className="flex items-center gap-3">
-                  {/* Circular mini progress */}
-                  <div className="relative w-12 h-12 flex-shrink-0">
-                    <svg className="transform -rotate-90 w-12 h-12">
-                      <circle
-                        cx="24"
-                        cy="24"
-                        r="18"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="none"
-                        className="text-gray-200"
-                      />
-                      <circle
-                        cx="24"
-                        cy="24"
-                        r="18"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="none"
-                        strokeDasharray={2 * Math.PI * 18}
-                        strokeDashoffset={2 * Math.PI * 18 * (1 - item.accuracy / 100)}
-                        strokeLinecap="round"
-                        className={`transition-all duration-700 ${
-                          item.accuracy >= 90 
-                            ? 'text-yellow-500' 
-                            : item.accuracy >= 85 
-                            ? 'text-green-500' 
-                            : 'text-blue-500'
-                        }`}
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      {item.accuracy >= 90 ? (
-                        <Trophy className="w-4 h-4 text-yellow-500" />
-                      ) : item.accuracy >= 85 ? (
-                        <Target className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <TrendingUp className="w-4 h-4 text-blue-500" />
-                      )}
-                    </div>
-                  </div>
-                  
-                  {/* Visual score blocks */}
-                  <div className="flex-1 flex items-center gap-1">
-                    {Array.from({ length: 10 }).map((_, i) => {
-                      const filled = (i + 1) * 10 <= item.accuracy;
-                      const partial = (i + 1) * 10 - 10 < item.accuracy && (i + 1) * 10 > item.accuracy;
-                      return (
-                        <div
-                          key={i}
-                          className={`flex-1 h-3 rounded-full transition-all duration-300 ${
-                            filled
-                              ? colorClasses[item.color]
-                              : partial
-                              ? `${colorClasses[item.color]} opacity-50`
-                              : 'bg-gray-200'
-                          }`}
-                        ></div>
-                      );
-                    })}
-                  </div>
-                  
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-sm text-gray-800 min-w-[3rem] text-right">
-                      {item.accuracy}%
-                    </span>
-                  </div>
-                </div>
+          { days: 5 as const, label: '5 Days', accuracy: accuracyStats[5] },
+          { days: 10 as const, label: '10 Days', accuracy: accuracyStats[10] },
+          { days: 30 as const, label: '30 Days', accuracy: accuracyStats[30] },
+        ].map((period) => {
+          const isActive = activeFilter === period.days;
+          return (
+            <div
+              key={period.days}
+              className={`rounded-lg p-2.5 border-2 transition-all ${
+                isActive
+                  ? 'bg-gradient-to-br from-purple-50 to-pink-50 border-purple-300 shadow-sm'
+                  : 'bg-gray-50 border-gray-200'
+              }`}
+            >
+              <div className="text-xs text-gray-600 mb-1">{period.label}</div>
+              <div className={`text-lg font-black ${isActive ? 'text-purple-600' : 'text-gray-700'}`}>
+                {period.accuracy}%
               </div>
             </div>
+          );
+        })}
+      </div>
+
+      {/* Recent Activities */}
+      <div className="space-y-1.5 max-h-80 overflow-y-auto">
+        {items.slice(0, 5).map((item) => (
+          <div
+            key={item.id}
+            className="flex items-center gap-3 p-2 rounded hover:bg-gray-50 transition-colors"
+          >
+            <div className="w-9 h-9 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+              {(() => {
+                const IconComponent = getSubjectIcon(item.iconType || item.subject);
+                return <IconComponent className="w-5 h-5 text-purple-600" />;
+              })()}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium text-gray-900 truncate">{item.game}</div>
+              <div className="text-xs text-gray-500">{item.subject} • {item.date}</div>
+            </div>
+            <div className="text-sm font-semibold text-gray-900">{item.accuracy}%</div>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

@@ -16,27 +16,19 @@ export default function App() {
       <StudentHeader />
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 pb-16 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {/* Left Column - Main Content */}
-          <div className="lg:col-span-2 space-y-4">
-            {/* Mini Games Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          {/* Main Content Area */}
+          <div className="lg:col-span-8 space-y-4">
             <MiniGames />
-
-            {/* Quizizz Journey */}
-            <QuizizzJourney />
-
-            {/* Performance Insights */}
             <PerformanceInsights />
+            <QuizizzJourney />
           </div>
 
-          {/* Right Column - Sidebar */}
-          <div className="lg:col-span-1 space-y-4">
-            {/* Achievements */}
-            <Achievements />
-
-            {/* Qbit Companion */}
+          {/* Sidebar */}
+          <div className="lg:col-span-4 space-y-4">
             <QbitCompanion />
+            <Achievements />
           </div>
         </div>
       </div>

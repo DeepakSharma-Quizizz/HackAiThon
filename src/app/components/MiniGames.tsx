@@ -39,10 +39,10 @@ const games = [
 
 export function MiniGames() {
   return (
-    <section className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-          <GameController className="w-6 h-5 text-purple-500" />
+    <section className="bg-white rounded-xl border-2 border-purple-100 shadow-md p-4">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-semibold text-gray-900 flex items-center gap-2">
+          <GameController className="w-5 h-4 text-purple-500" />
           <span>Mini Games</span>
         </h2>
         <span className="text-xs text-purple-600 font-semibold bg-purple-50 px-2.5 py-1 rounded-full">
@@ -50,32 +50,23 @@ export function MiniGames() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         {games.map((game) => (
-          <div
+          <button
             key={game.id}
-            className={`bg-gradient-to-br ${game.bgGradient} rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer border-2 border-white relative overflow-hidden`}
+            className={`bg-gradient-to-br ${game.bgGradient} rounded-xl p-3 hover:shadow-lg transform hover:-translate-y-0.5 transition-all text-left border-2 border-white/60 relative overflow-hidden group`}
           >
-            <div className="relative z-10">
-              {/* Icon */}
-              <div className={`w-12 h-12 bg-gradient-to-br ${game.gradient} rounded-xl flex items-center justify-center text-2xl shadow-md mb-3`}>
-                {game.icon}
-              </div>
-
-              {/* Game Info */}
-              <h3 className="text-lg font-bold text-gray-800 mb-0.5">
-                {game.name}
-              </h3>
-              <p className="text-xs text-gray-600 mb-2">{game.tagline}</p>
-
-              {/* CTA Button */}
-              <button
-                className={`w-full bg-gradient-to-r ${game.gradient} text-white font-semibold py-2 px-3 rounded-lg hover:shadow-md transition-all duration-200 text-sm`}
-              >
-                {game.action} →
-              </button>
+            <div className="absolute top-2 right-2 opacity-20 group-hover:opacity-30 transition-opacity">
+              <FloatingStar className="w-6 h-6 text-current" />
             </div>
-          </div>
+            <div className="relative z-10">
+              <div className="text-2xl mb-2">{game.icon}</div>
+              <div className="text-sm font-semibold text-gray-800 mb-0.5">
+                {game.name}
+              </div>
+              <div className="text-xs text-gray-600">{game.tagline}</div>
+            </div>
+          </button>
         ))}
       </div>
     </section>

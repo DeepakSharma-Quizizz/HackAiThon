@@ -327,13 +327,119 @@ export function CrownIcon({ className = "" }: { className?: string }) {
   );
 }
 
+export function CoinIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 40 40" fill="none">
+      {/* Coin body */}
+      <circle cx="20" cy="20" r="18" fill="#fbbf24" />
+      <circle cx="20" cy="20" r="15" fill="#f59e0b" />
+      <circle cx="20" cy="20" r="12" fill="#fbbf24" />
+      {/* Dollar sign */}
+      <text x="20" y="26" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#92400e">$</text>
+      {/* Shine effect */}
+      <ellipse cx="14" cy="14" rx="4" ry="3" fill="white" opacity="0.4" />
+    </svg>
+  );
+}
+
+export function GiftBoxIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 50" fill="none">
+      {/* Box body */}
+      <rect x="8" y="22" width="34" height="24" rx="3" fill="#ec4899" />
+      <rect x="10" y="24" width="30" height="20" rx="2" fill="#f472b6" />
+      {/* Lid */}
+      <rect x="5" y="15" width="40" height="10" rx="2" fill="#ec4899" />
+      <rect x="7" y="17" width="36" height="6" rx="1" fill="#f472b6" />
+      {/* Ribbon vertical */}
+      <rect x="22" y="15" width="6" height="31" fill="#fbbf24" />
+      {/* Ribbon horizontal */}
+      <rect x="5" y="18" width="40" height="4" fill="#fbbf24" />
+      {/* Bow */}
+      <ellipse cx="18" cy="12" rx="6" ry="4" fill="#fbbf24" />
+      <ellipse cx="32" cy="12" rx="6" ry="4" fill="#fbbf24" />
+      <circle cx="25" cy="14" r="3" fill="#f59e0b" />
+      {/* Sparkles */}
+      <circle cx="10" cy="10" r="1.5" fill="white" opacity="0.8" />
+      <circle cx="40" cy="8" r="1" fill="white" opacity="0.8" />
+      <circle cx="42" cy="30" r="1.5" fill="white" opacity="0.6" />
+    </svg>
+  );
+}
+
+export function QbitDoll({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 100 140" fill="none">
+      {/* Spotlight effect background */}
+      <ellipse cx="50" cy="130" rx="45" ry="8" fill="currentColor" opacity="0.1" />
+      
+      {/* Pedestal */}
+      <ellipse cx="50" cy="135" rx="40" ry="5" fill="currentColor" opacity="0.2" />
+      <ellipse cx="50" cy="133" rx="35" ry="3" fill="currentColor" opacity="0.15" />
+      
+      {/* Body - Shirt */}
+      <rect x="30" y="60" width="40" height="35" rx="8" fill="#ffffff" />
+      {/* V-neck */}
+      <path d="M40 60 L50 70 L60 60" stroke="#166534" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      {/* Chest stripe */}
+      <rect x="25" y="72" width="50" height="8" fill="#166534" />
+      {/* White circle on stripe */}
+      <circle cx="50" cy="76" r="4" fill="#ffffff" />
+      <circle cx="50" cy="76" r="3" fill="#166534" />
+      {/* Sleeve bands */}
+      <rect x="28" y="68" width="4" height="12" rx="2" fill="#166534" />
+      <rect x="68" y="68" width="4" height="12" rx="2" fill="#166534" />
+      
+      {/* Arms */}
+      <ellipse cx="20" cy="75" rx="6" ry="18" fill="#e5e7eb" />
+      <ellipse cx="80" cy="75" rx="6" ry="18" fill="#e5e7eb" />
+      
+      {/* Shorts */}
+      <path d="M28 95 Q28 90 30 90 L70 90 Q72 90 72 95 L72 110 Q72 115 70 115 L30 115 Q28 115 28 110 Z" fill="#f5f5dc" />
+      {/* Green stripes on shorts */}
+      <line x1="35" y1="90" x2="35" y2="115" stroke="#166534" strokeWidth="2" />
+      <line x1="40" y1="90" x2="40" y2="115" stroke="#166534" strokeWidth="2" />
+      <line x1="60" y1="90" x2="60" y2="115" stroke="#166534" strokeWidth="2" />
+      <line x1="65" y1="90" x2="65" y2="115" stroke="#166534" strokeWidth="2" />
+      {/* Buttons on shorts */}
+      <circle cx="68" cy="100" r="1" fill="#000000" />
+      <circle cx="68" cy="105" r="1" fill="#000000" />
+      
+      {/* Legs */}
+      <ellipse cx="35" cy="120" rx="5" ry="12" fill="#e5e7eb" />
+      <ellipse cx="65" cy="120" rx="5" ry="12" fill="#e5e7eb" />
+      
+      {/* Shoes */}
+      <ellipse cx="35" cy="130" rx="6" ry="4" fill="#dc2626" />
+      <ellipse cx="65" cy="130" rx="6" ry="4" fill="#dc2626" />
+      <ellipse cx="35" cy="131" rx="5" ry="2" fill="#ffffff" />
+      <ellipse cx="65" cy="131" rx="5" ry="2" fill="#ffffff" />
+      
+      {/* Head */}
+      <circle cx="50" cy="35" r="25" fill="#f3f4f6" />
+      
+      {/* Eyes */}
+      <ellipse cx="45" cy="32" rx="3" ry="4" fill="#000000" />
+      <ellipse cx="55" cy="32" rx="3" ry="4" fill="#000000" />
+    </svg>
+  );
+}
+
 export function BackgroundDecorations() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Reduced background decorations for cleaner look */}
-      <FloatingStar className="absolute top-20 left-10 w-6 h-6 text-yellow-300 opacity-15 animate-float" />
-      <FloatingStar className="absolute top-40 right-20 w-5 h-5 text-purple-300 opacity-10 animate-float-reverse" style={{ animationDelay: '1s' }} />
-      <HappyCloud className="absolute top-10 right-10 w-20 h-12 text-blue-200 opacity-10 animate-float" style={{ animationDelay: '0.5s' }} />
+      {/* Floating stars */}
+      <FloatingStar className="absolute top-20 left-10 w-8 h-8 text-yellow-300 opacity-25 animate-float" />
+      <FloatingStar className="absolute top-40 right-20 w-6 h-6 text-purple-300 opacity-20 animate-float-reverse" style={{ animationDelay: '1s' }} />
+      <FloatingStar className="absolute bottom-40 left-20 w-7 h-7 text-pink-300 opacity-22 animate-gentle-bounce" style={{ animationDelay: '2s' }} />
+      
+      {/* Happy clouds */}
+      <HappyCloud className="absolute top-10 right-10 w-24 h-16 text-blue-200 opacity-18 animate-float" style={{ animationDelay: '0.5s' }} />
+      <HappyCloud className="absolute bottom-20 left-5 w-20 h-12 text-purple-200 opacity-15 animate-float-reverse" style={{ animationDelay: '1.5s' }} />
+      
+      {/* Rocket ships */}
+      <RocketShip className="absolute top-60 right-5 w-12 h-16 text-orange-300 opacity-18 animate-float" style={{ animationDelay: '2.5s' }} />
+      <RocketShip className="absolute bottom-60 left-10 w-10 h-14 text-pink-300 opacity-15 animate-float-reverse" style={{ animationDelay: '3s' }} />
     </div>
   );
 }
