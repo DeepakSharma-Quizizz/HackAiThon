@@ -1,12 +1,28 @@
 import { Trophy, Flame, Star, Zap, Award, Crown } from 'lucide-react';
+import { EmptyState } from './EmptyState';
+import { useState } from 'react';
 
-const badges = [
-  { id: 1, name: 'First Win', icon: '🏆', unlocked: true, color: 'from-yellow-400 to-orange-500' },
-  { id: 2, name: 'Speed Demon', icon: '⚡', unlocked: true, color: 'from-purple-400 to-pink-500' },
-  { id: 3, name: 'Perfect Score', icon: '💯', unlocked: true, color: 'from-green-400 to-emerald-500' },
-  { id: 4, name: 'Streak Master', icon: '🔥', unlocked: true, color: 'from-red-400 to-orange-500' },
-  { id: 5, name: 'Knowledge King', icon: '👑', unlocked: false, color: 'from-gray-300 to-gray-400' },
-  { id: 6, name: 'Quiz Legend', icon: '⭐', unlocked: false, color: 'from-gray-300 to-gray-400' },
+interface Badge {
+  id: number;
+  name: string;
+  icon: string;
+  unlocked: boolean;
+  color: string;
+  category: 'daily' | 'weekly' | 'lifetime';
+  description?: string;
+  progress?: number;
+  target?: number;
+}
+
+const badges: Badge[] = [
+  { id: 1, name: 'First Win', icon: '🏆', unlocked: true, color: 'from-yellow-400 to-orange-500', category: 'lifetime', description: 'Win your first game' },
+  { id: 2, name: 'Speed Demon', icon: '⚡', unlocked: true, color: 'from-purple-400 to-pink-500', category: 'weekly', description: 'Complete 5 quizzes in one day' },
+  { id: 3, name: 'Perfect Score', icon: '💯', unlocked: true, color: 'from-green-400 to-emerald-500', category: 'lifetime', description: 'Get 100% accuracy' },
+  { id: 4, name: 'Streak Master', icon: '🔥', unlocked: true, color: 'from-red-400 to-orange-500', category: 'weekly', description: 'Maintain a 7-day streak' },
+  { id: 5, name: 'Knowledge King', icon: '👑', unlocked: false, color: 'from-gray-300 to-gray-400', category: 'lifetime', description: 'Reach level 20', progress: 12, target: 20 },
+  { id: 6, name: 'Quiz Legend', icon: '⭐', unlocked: false, color: 'from-gray-300 to-gray-400', category: 'lifetime', description: 'Answer 1000 questions', progress: 847, target: 1000 },
+  { id: 7, name: 'Daily Warrior', icon: '🗡️', unlocked: false, color: 'from-gray-300 to-gray-400', category: 'daily', description: 'Complete today\'s challenge', progress: 0, target: 1 },
+  { id: 8, name: 'Week Warrior', icon: '🛡️', unlocked: false, color: 'from-gray-300 to-gray-400', category: 'weekly', description: 'Complete all weekly challenges', progress: 2, target: 5 },
 ];
 
 const milestones = [
@@ -24,6 +40,14 @@ const colorClasses = {
 export function Achievements() {
   const currentStreak = 7;
   const longestStreak = 12;
+  const [activeCategory, setActiveCategory] = useState<'all' | 'daily' | 'weekly' | 'lifetime'>('all');
+
+  const filteredBadges = activeCategory === 'all' 
+    ? badges 
+    : badges.filter(b => b.category === activeCategory);
+
+  const unlockedCount = badges.filter(b => b.unlocked).length;
+  const totalBadges = badges.length;
 
   return (
     <section className="space-y-4">
@@ -36,7 +60,7 @@ export function Achievements() {
             <Flame className="w-6 h-6" />
           </div>
           <div className="text-center mb-3">
-            <div className="text-6xl font-black mb-2">{currentStreak}</div>
+            <div className="text-6xl font-black mb-2 animate-in zoom-in duration-500">{currentStreak}</div>
             <div className="text-sm opacity-90">days in a row! 🔥</div>
           </div>
           <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
@@ -56,27 +80,76 @@ export function Achievements() {
             Badges
           </h3>
           <span className="text-sm font-semibold text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full">
-            {badges.filter(b => b.unlocked).length}/{badges.length}
+            {unlockedCount}/{totalBadges}
           </span>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
-          {badges.map((badge) => (
-            <div
-              key={badge.id}
-              className={`aspect-square rounded-2xl bg-gradient-to-br ${badge.color} flex flex-col items-center justify-center p-3 ${
-                badge.unlocked
-                  ? 'shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer'
-                  : 'opacity-40 grayscale'
+        {/* Category Filter */}
+        <div className="flex gap-2 mb-4 bg-gray-100 rounded-xl p-1">
+          {[
+            { key: 'all' as const, label: 'All' },
+            { key: 'daily' as const, label: 'Daily' },
+            { key: 'weekly' as const, label: 'Weekly' },
+            { key: 'lifetime' as const, label: 'Lifetime' },
+          ].map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold transition-all ${
+                activeCategory === cat.key
+                  ? 'bg-white text-purple-600 shadow-sm'
+                  : 'text-gray-600 hover:bg-gray-200'
               }`}
             >
-              <div className="text-3xl mb-1">{badge.icon}</div>
-              <div className="text-xs font-bold text-white text-center leading-tight">
-                {badge.name}
-              </div>
-            </div>
+              {cat.label}
+            </button>
           ))}
         </div>
+
+        {filteredBadges.length === 0 ? (
+          <EmptyState
+            emoji="🏆"
+            title="No Badges Yet"
+            message="Complete challenges and play games to unlock amazing badges!"
+            actionLabel="Start Playing"
+            onAction={() => console.log('Navigate to games')}
+          />
+        ) : (
+          <div className="grid grid-cols-3 gap-3">
+            {filteredBadges.map((badge) => {
+              const progressPercentage = badge.progress && badge.target 
+                ? Math.min((badge.progress / badge.target) * 100, 100)
+                : 0;
+
+              return (
+                <div
+                  key={badge.id}
+                  className={`aspect-square rounded-2xl bg-gradient-to-br ${badge.color} flex flex-col items-center justify-center p-3 relative overflow-hidden ${
+                    badge.unlocked
+                      ? 'shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all cursor-pointer'
+                      : 'opacity-40 grayscale'
+                  }`}
+                  title={badge.description}
+                >
+                  <div className="text-3xl mb-1">{badge.icon}</div>
+                  <div className="text-xs font-bold text-white text-center leading-tight">
+                    {badge.name}
+                  </div>
+                  {!badge.unlocked && badge.progress !== undefined && badge.target && (
+                    <div className="absolute bottom-1 left-1 right-1">
+                      <div className="bg-black/30 rounded-full h-1 overflow-hidden">
+                        <div
+                          className="h-full bg-white rounded-full transition-all duration-500"
+                          style={{ width: `${progressPercentage}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Milestones */}
@@ -108,8 +181,10 @@ export function Achievements() {
                 </div>
                 <div className="bg-gray-200 rounded-full h-2.5 overflow-hidden">
                   <div
-                    className={`h-full ${colorClasses[milestone.color]} transition-all duration-500 rounded-full`}
-                    style={{ width: `${percentage}%` }}
+                    className={`h-full ${colorClasses[milestone.color]} transition-all duration-700 ease-out rounded-full`}
+                    style={{ 
+                      width: `${percentage}%`
+                    }}
                   ></div>
                 </div>
               </div>

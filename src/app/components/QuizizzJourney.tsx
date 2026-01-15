@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Calendar, Trophy, Target, TrendingUp } from 'lucide-react';
+import { EmptyState } from './EmptyState';
 
 const journeyData = {
   5: [
@@ -44,9 +45,14 @@ const colorClasses = {
   yellow: 'bg-yellow-500',
 };
 
-export function QuizizzJourney() {
+interface QuizizzJourneyProps {
+  data?: typeof journeyData;
+}
+
+export function QuizizzJourney({ data }: QuizizzJourneyProps = {} as QuizizzJourneyProps) {
   const [activeFilter, setActiveFilter] = useState<5 | 10 | 30>(5);
-  const items = journeyData[activeFilter];
+  const journeyDataToUse = data || journeyData;
+  const items = journeyDataToUse[activeFilter];
 
   return (
     <section className="bg-white rounded-3xl p-6 shadow-lg border-4 border-purple-100">
@@ -81,7 +87,16 @@ export function QuizizzJourney() {
 
       {/* Journey Timeline */}
       <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
-        {items.map((item, index) => (
+        {items.length === 0 ? (
+          <EmptyState
+            emoji="🚀"
+            title="No Journey Yet"
+            message="Start playing quizzes and games to build your learning journey!"
+            actionLabel="Play Your First Quiz"
+            onAction={() => console.log('Navigate to quizzes')}
+          />
+        ) : (
+          items.map((item, index) => (
           <div
             key={item.id}
             className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-4 hover:shadow-md transition-all duration-200 cursor-pointer group border-2 border-transparent hover:border-purple-200"
@@ -115,8 +130,10 @@ export function QuizizzJourney() {
                 <div className="flex items-center gap-3">
                   <div className="flex-1 bg-gray-200 rounded-full h-2.5 overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${colorClasses[item.color]} transition-all duration-500`}
-                      style={{ width: `${item.accuracy}%` }}
+                      className={`h-full rounded-full ${colorClasses[item.color]} transition-all duration-700 ease-out`}
+                      style={{ 
+                        width: `${item.accuracy}%`
+                      }}
                     ></div>
                   </div>
                   <div className="flex items-center gap-1">
@@ -135,7 +152,8 @@ export function QuizizzJourney() {
               </div>
             </div>
           </div>
-        ))}
+          ))
+        )}
       </div>
     </section>
   );

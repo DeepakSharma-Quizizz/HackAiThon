@@ -50,30 +50,47 @@ export function PerformanceInsights() {
       <div className="mb-6 bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6">
         {viewMode === 'bar' ? (
           <div className="space-y-4">
-            {subjectData.map((subject) => (
-              <div key={subject.subject} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">{subject.emoji}</span>
-                    <span className="text-sm font-semibold text-gray-700">
-                      {subject.subject}
-                    </span>
+            {subjectData.map((subject, index) => {
+              const isStrong = subject.accuracy >= 90;
+              const isImproving = subject.accuracy >= 85 && subject.accuracy < 90;
+              const needsWork = subject.accuracy < 85;
+              
+              return (
+                <div key={subject.subject} className="space-y-2 animate-in fade-in slide-in-from-left-4" style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">{subject.emoji}</span>
+                      <span className="text-sm font-semibold text-gray-700">
+                        {subject.subject}
+                      </span>
+                      {isStrong && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">Strong</span>}
+                      {isImproving && <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">Improving</span>}
+                      {needsWork && <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">Needs Work</span>}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {isStrong && <span className="text-lg">⬆️</span>}
+                      {isImproving && <span className="text-lg">➡️</span>}
+                      {needsWork && <span className="text-lg">⬇️</span>}
+                      <span className="text-sm font-bold text-gray-800">
+                        {subject.accuracy}%
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-sm font-bold text-gray-800">
-                    {subject.accuracy}%
-                  </span>
+                  <div className="bg-gray-200 rounded-full h-4 overflow-hidden relative">
+                    <div
+                      className="h-full rounded-full transition-all duration-700 ease-out relative"
+                      style={{ 
+                        width: `${subject.accuracy}%`,
+                        backgroundColor: subject.color
+                      }}
+                    >
+                      {/* Shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-gray-200 rounded-full h-4 overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all duration-500"
-                    style={{ 
-                      width: `${subject.accuracy}%`,
-                      backgroundColor: subject.color 
-                    }}
-                  ></div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="relative w-full aspect-square max-w-sm mx-auto">
