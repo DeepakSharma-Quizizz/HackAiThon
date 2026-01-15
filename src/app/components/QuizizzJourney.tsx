@@ -62,26 +62,17 @@ export function QuizizzJourney() {
   const items = journeyData[activeFilter];
 
   return (
-    <section className="bg-white rounded-3xl p-6 shadow-lg border-4 border-purple-100 relative overflow-hidden">
-      {/* Fun background decorations */}
-      <div className="absolute top-6 right-6 opacity-10 animate-float">
-        <RocketShip className="w-16 h-20 text-purple-400" />
-      </div>
-      <div className="absolute bottom-6 left-6 opacity-10 animate-float-reverse">
-        <FloatingStar className="w-12 h-12 text-pink-400" />
-      </div>
-      
-      <div className="relative z-10">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <RocketShip className="w-8 h-10 text-purple-500" />
+    <section className="bg-white rounded-2xl p-4 shadow-md border-2 border-gray-100">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+          <RocketShip className="w-6 h-8 text-purple-500" />
           <span>Your Learning Journey</span>
         </h2>
-        <Calendar className="w-6 h-6 text-purple-500" />
+        <Calendar className="w-5 h-5 text-purple-500" />
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex gap-2 mb-6 bg-gray-100 rounded-2xl p-1.5">
+      <div className="flex gap-2 mb-4 bg-gray-100 rounded-xl p-1">
         {[
           { days: 5 as const, label: 'Last 5 days' },
           { days: 10 as const, label: 'Last 10 days' },
@@ -102,11 +93,11 @@ export function QuizizzJourney() {
       </div>
 
       {/* Journey Timeline */}
-      <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
+      <div className="space-y-2 max-h-96 overflow-y-auto pr-2">
         {items.map((item, index) => (
           <div
             key={item.id}
-            className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-4 hover:shadow-md transition-all duration-200 cursor-pointer group border-2 border-transparent hover:border-purple-200"
+            className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-3 hover:shadow-sm transition-all duration-200 cursor-pointer group border border-transparent hover:border-purple-200"
           >
             <div className="flex items-center gap-4">
               {/* Timeline Dot */}
@@ -210,7 +201,6 @@ export function QuizizzJourney() {
             </div>
           </div>
         ))}
-      </div>
       </div>
     </section>
   );

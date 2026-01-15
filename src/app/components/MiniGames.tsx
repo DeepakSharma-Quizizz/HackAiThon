@@ -39,54 +39,38 @@ const games = [
 
 export function MiniGames() {
   return (
-    <section className="space-y-4">
+    <section className="space-y-3">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <GameController className="w-8 h-6 text-purple-500" />
+        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+          <GameController className="w-6 h-5 text-purple-500" />
           <span>Mini Games</span>
         </h2>
-        <span className="text-sm text-purple-600 font-semibold bg-purple-100 px-3 py-1.5 rounded-full">
+        <span className="text-xs text-purple-600 font-semibold bg-purple-50 px-2.5 py-1 rounded-full">
           3 Available
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {games.map((game) => (
           <div
             key={game.id}
-            className={`bg-gradient-to-br ${game.bgGradient} rounded-3xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer border-4 border-white relative overflow-hidden group`}
+            className={`bg-gradient-to-br ${game.bgGradient} rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer border-2 border-white relative overflow-hidden`}
           >
-            {/* Decorative Background Elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/30 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-500"></div>
-            
-            {/* Fun cartoon decorations */}
-            <div className="absolute top-4 left-4 opacity-15 group-hover:opacity-25 transition-opacity animate-gentle-bounce">
-              <FloatingStar className="w-10 h-10 text-current" />
-            </div>
-            
             <div className="relative z-10">
               {/* Icon */}
-              <div className={`w-16 h-16 bg-gradient-to-br ${game.gradient} rounded-2xl flex items-center justify-center text-3xl shadow-lg mb-4 transform group-hover:rotate-12 transition-transform duration-300`}>
+              <div className={`w-12 h-12 bg-gradient-to-br ${game.gradient} rounded-xl flex items-center justify-center text-2xl shadow-md mb-3`}>
                 {game.icon}
               </div>
 
               {/* Game Info */}
-              <h3 className="text-xl font-bold text-gray-800 mb-1">
+              <h3 className="text-lg font-bold text-gray-800 mb-0.5">
                 {game.name}
               </h3>
-              <p className="text-sm text-gray-600 mb-3">{game.tagline}</p>
-
-              {/* Description Badge */}
-              <div className="flex items-center gap-2 mb-4">
-                <game.iconComponent className="w-4 h-4 text-gray-600" />
-                <span className="text-xs font-medium text-gray-600">
-                  {game.description}
-                </span>
-              </div>
+              <p className="text-xs text-gray-600 mb-2">{game.tagline}</p>
 
               {/* CTA Button */}
               <button
-                className={`w-full bg-gradient-to-r ${game.gradient} text-white font-bold py-3 px-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200`}
+                className={`w-full bg-gradient-to-r ${game.gradient} text-white font-semibold py-2 px-3 rounded-lg hover:shadow-md transition-all duration-200 text-sm`}
               >
                 {game.action} →
               </button>

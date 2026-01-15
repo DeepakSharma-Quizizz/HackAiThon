@@ -28,10 +28,10 @@ export function PerformanceInsights() {
   const needsWork = subjectData.filter(s => s.accuracy < 85);
 
   return (
-    <section className="bg-white rounded-3xl p-6 shadow-lg border-4 border-blue-100">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <ChartIcon className="w-8 h-6 text-purple-500" />
+    <section className="bg-white rounded-2xl p-4 shadow-md border-2 border-gray-100">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+          <ChartIcon className="w-6 h-5 text-purple-500" />
           <span>Performance Insights</span>
         </h2>
         <div className="flex gap-2 bg-gray-100 rounded-xl p-1">
@@ -59,18 +59,9 @@ export function PerformanceInsights() {
       </div>
 
       {/* Chart */}
-      <div className="mb-6 bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 relative overflow-hidden">
-        {/* Fun background decorations */}
-        <div className="absolute top-4 right-4 opacity-10 animate-float">
-          <BookCharacter className="w-20 h-24 text-purple-400" />
-        </div>
-        <div className="absolute bottom-4 left-4 opacity-10 animate-float-reverse">
-          <LightBulb className="w-16 h-20 text-blue-400" />
-        </div>
-        
-        <div className="relative z-10">
+      <div className="mb-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-4">
         {viewMode === 'bar' ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {subjectData.map((subject) => {
               const circumference = 2 * Math.PI * 36; // radius = 36
               const offset = circumference - (subject.accuracy / 100) * circumference;
@@ -201,18 +192,13 @@ export function PerformanceInsights() {
             </svg>
           </div>
         )}
-        </div>
       </div>
 
       {/* Insights Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {/* Strong Subjects */}
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 border-2 border-green-200 relative overflow-hidden">
-          <div className="absolute top-2 right-2 opacity-15 animate-gentle-bounce">
-            <TrophyIcon className="w-12 h-14 text-green-500" />
-          </div>
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-3">
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-3 border border-green-200">
+          <div className="flex items-center gap-2 mb-2">
               <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-white" />
               </div>
@@ -236,8 +222,8 @@ export function PerformanceInsights() {
 
         {/* Needs Work */}
         {needsWork.length > 0 && (
-          <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-4 border-2 border-orange-200">
-            <div className="flex items-center gap-2 mb-3">
+          <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-3 border border-orange-200">
+            <div className="flex items-center gap-2 mb-2">
               <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
@@ -264,8 +250,8 @@ export function PerformanceInsights() {
 
         {/* All Strong Message */}
         {needsWork.length === 0 && (
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-4 border-2 border-purple-200">
-            <div className="flex items-center gap-2 mb-3">
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-3 border border-purple-200">
+            <div className="flex items-center gap-2 mb-2">
               <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
@@ -279,7 +265,7 @@ export function PerformanceInsights() {
       </div>
 
       {/* Motivational Footer */}
-      <div className="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-4 text-white text-center">
+      <div className="mt-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-3 text-white text-center">
         <p className="font-semibold">
           ✨ Your average accuracy is {Math.round(subjectData.reduce((acc, curr) => acc + curr.accuracy, 0) / subjectData.length)}% — that's awesome!
         </p>

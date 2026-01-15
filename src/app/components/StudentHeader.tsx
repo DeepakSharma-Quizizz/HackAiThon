@@ -1,29 +1,22 @@
 import { Settings, Bell } from 'lucide-react';
-import { FloatingStar, GameController, WavingHand, HeroCharacter } from './CartoonIllustrations';
+import { GameController, WavingHand, HeroCharacter } from './CartoonIllustrations';
 
 export function StudentHeader() {
   return (
-    <header className="bg-white border-b-4 border-purple-200 shadow-sm sticky top-0 z-50 relative overflow-hidden">
-      {/* Fun background decorations */}
-      <div className="absolute top-2 right-20 opacity-10">
-        <FloatingStar className="w-8 h-8 text-purple-300" />
-      </div>
-      <div className="absolute bottom-2 left-32 opacity-10">
-        <FloatingStar className="w-6 h-6 text-pink-300" />
-      </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 relative z-10">
+    <header className="bg-white border-b-2 border-purple-100 shadow-sm sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex items-center justify-between">
           {/* Logo & Greeting */}
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-6">
-              <GameController className="w-8 h-6 text-white transform -rotate-6" />
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-md">
+              <GameController className="w-6 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
+              <h1 className="text-xl font-bold text-gray-800 flex items-center gap-1.5">
                 <span>Hey, Alex!</span>
-                <WavingHand className="w-6 h-7 text-purple-500" />
+                <WavingHand className="w-5 h-6 text-purple-500" />
               </h1>
-              <p className="text-sm text-gray-600">Ready to level up today?</p>
+              <p className="text-xs text-gray-600">Ready to level up today?</p>
             </div>
           </div>
 

@@ -47,30 +47,21 @@ export function Achievements() {
   const longestStreak = 12;
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-3">
       {/* Streak Card */}
-      <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl p-6 shadow-lg border-4 border-white text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-        {/* Fun cartoon decorations */}
-        <div className="absolute bottom-4 left-4 opacity-20 animate-float">
-          <FloatingStar className="w-12 h-12 text-white" />
+      <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-4 shadow-md border-2 border-white text-white">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-bold text-base">Current Streak</h3>
+          <Flame className="w-5 h-5" />
         </div>
-        <div className="absolute top-4 right-4 opacity-15 animate-gentle-bounce">
-          <FloatingStar className="w-10 h-10 text-white" />
+        <div className="text-center mb-2">
+          <div className="text-5xl font-black mb-1">{currentStreak}</div>
+          <div className="text-xs opacity-90 flex items-center justify-center gap-1">
+            <span>days in a row!</span>
+            <Flame className="w-3 h-3" />
+          </div>
         </div>
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-lg">Current Streak</h3>
-            <Flame className="w-6 h-6" />
-          </div>
-          <div className="text-center mb-3">
-            <div className="text-6xl font-black mb-2">{currentStreak}</div>
-            <div className="text-sm opacity-90 flex items-center justify-center gap-1">
-              <span>days in a row!</span>
-              <Flame className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
+        <div className="bg-white/20 rounded-lg p-2 backdrop-blur-sm">
             <div className="flex items-center justify-between text-sm">
               <span>Longest streak:</span>
               <span className="font-bold">{longestStreak} days</span>
@@ -80,13 +71,8 @@ export function Achievements() {
       </div>
 
       {/* Badges */}
-      <div className="bg-white rounded-3xl p-6 shadow-lg border-4 border-yellow-100 relative overflow-hidden">
-        {/* Fun background decoration */}
-        <div className="absolute top-4 right-4 opacity-10 animate-float">
-          <TrophyIcon className="w-16 h-20 text-yellow-400" />
-        </div>
-        <div className="relative z-10">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-white rounded-2xl p-4 shadow-md border-2 border-gray-100">
+        <div className="flex items-center justify-between mb-3">
           <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2">
             <Award className="w-5 h-5 text-yellow-500" />
             Badges
@@ -119,17 +105,11 @@ export function Achievements() {
             </div>
           ))}
         </div>
-        </div>
       </div>
 
       {/* Milestones */}
-      <div className="bg-white rounded-3xl p-6 shadow-lg border-4 border-purple-100 relative overflow-hidden">
-        {/* Fun background decoration */}
-        <div className="absolute bottom-4 right-4 opacity-10 animate-float-reverse">
-          <FloatingStar className="w-14 h-14 text-purple-400" />
-        </div>
-        <div className="relative z-10">
-        <div className="flex items-center gap-2 mb-4">
+      <div className="bg-white rounded-2xl p-4 shadow-md border-2 border-gray-100">
+        <div className="flex items-center gap-2 mb-3">
           <Crown className="w-5 h-5 text-purple-500" />
           <h3 className="font-bold text-lg text-gray-800">Milestones</h3>
         </div>
@@ -210,7 +190,6 @@ export function Achievements() {
               </div>
             );
           })}
-        </div>
         </div>
       </div>
     </section>

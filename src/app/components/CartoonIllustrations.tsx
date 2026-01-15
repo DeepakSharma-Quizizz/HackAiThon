@@ -330,18 +330,10 @@ export function CrownIcon({ className = "" }: { className?: string }) {
 export function BackgroundDecorations() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Floating stars */}
-      <FloatingStar className="absolute top-20 left-10 w-8 h-8 text-yellow-300 opacity-30 animate-float" />
-      <FloatingStar className="absolute top-40 right-20 w-6 h-6 text-purple-300 opacity-20 animate-float-reverse" style={{ animationDelay: '1s' }} />
-      <FloatingStar className="absolute bottom-40 left-20 w-7 h-7 text-pink-300 opacity-25 animate-gentle-bounce" style={{ animationDelay: '2s' }} />
-      
-      {/* Happy clouds */}
-      <HappyCloud className="absolute top-10 right-10 w-24 h-16 text-blue-200 opacity-20 animate-float" style={{ animationDelay: '0.5s' }} />
-      <HappyCloud className="absolute bottom-20 left-5 w-20 h-12 text-purple-200 opacity-15 animate-float-reverse" style={{ animationDelay: '1.5s' }} />
-      
-      {/* Rocket ships */}
-      <RocketShip className="absolute top-60 right-5 w-12 h-16 text-orange-300 opacity-20 animate-float" style={{ animationDelay: '2.5s' }} />
-      <RocketShip className="absolute bottom-60 left-10 w-10 h-14 text-pink-300 opacity-15 animate-float-reverse" style={{ animationDelay: '3s' }} />
+      {/* Reduced background decorations for cleaner look */}
+      <FloatingStar className="absolute top-20 left-10 w-6 h-6 text-yellow-300 opacity-15 animate-float" />
+      <FloatingStar className="absolute top-40 right-20 w-5 h-5 text-purple-300 opacity-10 animate-float-reverse" style={{ animationDelay: '1s' }} />
+      <HappyCloud className="absolute top-10 right-10 w-20 h-12 text-blue-200 opacity-10 animate-float" style={{ animationDelay: '0.5s' }} />
     </div>
   );
 }

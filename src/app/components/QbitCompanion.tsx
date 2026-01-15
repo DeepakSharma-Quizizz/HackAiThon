@@ -36,54 +36,40 @@ export function QbitCompanion() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl p-6 shadow-lg border-4 border-cyan-200 relative overflow-hidden sticky top-24">
+    <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-4 shadow-md border-2 border-cyan-100 relative overflow-hidden sticky top-20">
       {/* Close Button */}
       <button
         onClick={() => setIsMinimized(true)}
-        className="absolute top-3 right-3 w-8 h-8 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors z-10"
+        className="absolute top-2 right-2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors z-10"
       >
-        <X className="w-4 h-4 text-gray-600" />
+        <X className="w-3.5 h-3.5 text-gray-600" />
       </button>
-
-      {/* Decorative Background */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-200/30 rounded-full -translate-y-12 translate-x-12"></div>
-      <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-200/30 rounded-full translate-y-16 -translate-x-16"></div>
-      
-      {/* Fun cartoon decorations */}
-      <div className="absolute top-4 left-4 opacity-15 animate-float">
-        <HappyCloud className="w-16 h-10 text-cyan-400" />
-      </div>
-      <div className="absolute bottom-4 right-4 opacity-15 animate-gentle-bounce">
-        <FloatingStar className="w-10 h-10 text-blue-400" />
-      </div>
 
       <div className="relative z-10">
         {/* Qbit Character */}
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-3">
           <div className="relative">
             {/* Qbit Robot */}
-            <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-lg transform hover:rotate-6 transition-transform border-4 border-white">
-              <RobotCharacter className="w-16 h-18 text-white" />
+            <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center shadow-md transform hover:rotate-6 transition-transform border-2 border-white">
+              <RobotCharacter className="w-12 h-14 text-white" />
             </div>
-            {/* Animated Pulse */}
-            <div className="absolute inset-0 bg-cyan-400 rounded-3xl animate-ping opacity-20"></div>
           </div>
         </div>
 
         {/* Qbit Name */}
-        <div className="text-center mb-4">
-          <h3 className="font-black text-xl bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+        <div className="text-center mb-3">
+          <h3 className="font-bold text-lg text-gray-800">
             Qbit
           </h3>
           <p className="text-xs text-gray-600">Your Learning Companion</p>
         </div>
 
         {/* Message Bubble */}
-        <div className="bg-white rounded-2xl p-4 shadow-md border-2 border-cyan-200 mb-4 relative">
+        <div className="bg-white rounded-xl p-3 shadow-sm border border-cyan-200 mb-3 relative">
           {/* Speech Bubble Tail */}
-          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-l-2 border-t-2 border-cyan-200 transform rotate-45"></div>
+          <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-l border-t border-cyan-200 transform rotate-45"></div>
           
-          <p className="text-sm text-gray-800 font-medium text-center leading-relaxed">
+          <p className="text-xs text-gray-800 font-medium text-center leading-relaxed">
             {currentMessage.text}
           </p>
         </div>
@@ -103,21 +89,21 @@ export function QbitCompanion() {
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-4 pt-4 border-t-2 border-cyan-100">
-          <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">
-            <MessageCircle className="w-4 h-4" />
+        <div className="mt-3 pt-3 border-t border-cyan-100">
+          <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2 px-3 rounded-lg hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 text-sm">
+            <MessageCircle className="w-3.5 h-3.5" />
             Chat with Qbit
           </button>
         </div>
 
         {/* Fun Stats */}
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="bg-gradient-to-br from-cyan-100 to-blue-100 rounded-xl p-3 text-center">
-            <div className="text-2xl font-black text-cyan-700">42</div>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <div className="bg-gradient-to-br from-cyan-100 to-blue-100 rounded-lg p-2 text-center">
+            <div className="text-xl font-black text-cyan-700">42</div>
             <div className="text-xs text-gray-600">Tips given</div>
           </div>
-          <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl p-3 text-center">
-            <div className="text-2xl font-black text-blue-700">98%</div>
+          <div className="bg-gradient-to-br from-blue-100 to-violet-100 rounded-lg p-2 text-center">
+            <div className="text-xl font-black text-blue-700">98%</div>
             <div className="text-xs text-gray-600">Accuracy</div>
           </div>
         </div>
