@@ -1,13 +1,33 @@
 import { Trophy, Flame, Star, Zap, Award, Crown } from 'lucide-react';
-import { TrophyIcon, FloatingStar } from './CartoonIllustrations';
+import { TrophyIcon, FloatingStar, CrownIcon } from './CartoonIllustrations';
+
+// Create additional badge icons
+const BadgeIcon = ({ type, className }: { type: string; className?: string }) => {
+  switch (type) {
+    case 'trophy':
+      return <TrophyIcon className={className} />;
+    case 'lightning':
+      return <Zap className={className} />;
+    case 'perfect':
+      return <span className={className}>100</span>;
+    case 'flame':
+      return <Flame className={className} />;
+    case 'crown':
+      return <Crown className={className} />;
+    case 'star':
+      return <FloatingStar className={className} />;
+    default:
+      return <Award className={className} />;
+  }
+};
 
 const badges = [
-  { id: 1, name: 'First Win', icon: '🏆', unlocked: true, color: 'from-yellow-400 to-orange-500' },
-  { id: 2, name: 'Speed Demon', icon: '⚡', unlocked: true, color: 'from-purple-400 to-pink-500' },
-  { id: 3, name: 'Perfect Score', icon: '💯', unlocked: true, color: 'from-green-400 to-emerald-500' },
-  { id: 4, name: 'Streak Master', icon: '🔥', unlocked: true, color: 'from-red-400 to-orange-500' },
-  { id: 5, name: 'Knowledge King', icon: '👑', unlocked: false, color: 'from-gray-300 to-gray-400' },
-  { id: 6, name: 'Quiz Legend', icon: '⭐', unlocked: false, color: 'from-gray-300 to-gray-400' },
+  { id: 1, name: 'First Win', iconType: 'trophy', unlocked: true, color: 'from-yellow-400 to-orange-500' },
+  { id: 2, name: 'Speed Demon', iconType: 'lightning', unlocked: true, color: 'from-purple-400 to-pink-500' },
+  { id: 3, name: 'Perfect Score', iconType: 'perfect', unlocked: true, color: 'from-green-400 to-emerald-500' },
+  { id: 4, name: 'Streak Master', iconType: 'flame', unlocked: true, color: 'from-red-400 to-orange-500' },
+  { id: 5, name: 'Knowledge King', iconType: 'crown', unlocked: false, color: 'from-gray-300 to-gray-400' },
+  { id: 6, name: 'Quiz Legend', iconType: 'star', unlocked: false, color: 'from-gray-300 to-gray-400' },
 ];
 
 const milestones = [
@@ -45,7 +65,10 @@ export function Achievements() {
           </div>
           <div className="text-center mb-3">
             <div className="text-6xl font-black mb-2">{currentStreak}</div>
-            <div className="text-sm opacity-90">days in a row! 🔥</div>
+            <div className="text-sm opacity-90 flex items-center justify-center gap-1">
+              <span>days in a row!</span>
+              <Flame className="w-4 h-4" />
+            </div>
           </div>
           <div className="bg-white/20 rounded-xl p-3 backdrop-blur-sm">
             <div className="flex items-center justify-between text-sm">
@@ -83,7 +106,13 @@ export function Achievements() {
                   : 'opacity-40 grayscale'
               }`}
             >
-              <div className="text-3xl mb-1">{badge.icon}</div>
+              <div className="mb-1 flex items-center justify-center">
+                {badge.iconType === 'perfect' ? (
+                  <span className="text-2xl font-black text-white">100</span>
+                ) : (
+                  <BadgeIcon type={badge.iconType} className="w-8 h-8 text-white" />
+                )}
+              </div>
               <div className="text-xs font-bold text-white text-center leading-tight">
                 {badge.name}
               </div>

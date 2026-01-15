@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
-import { HappyCloud, FloatingStar } from './CartoonIllustrations';
+import { HappyCloud, FloatingStar, RobotCharacter } from './CartoonIllustrations';
 
 const messages = [
   { id: 1, text: "Hey! Hope you're doing great today 😊", mood: 'happy' },
@@ -63,7 +63,7 @@ export function QbitCompanion() {
           <div className="relative">
             {/* Qbit Robot */}
             <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-lg transform hover:rotate-6 transition-transform border-4 border-white">
-              <span className="text-5xl">🤖</span>
+              <RobotCharacter className="w-16 h-18 text-white" />
             </div>
             {/* Animated Pulse */}
             <div className="absolute inset-0 bg-cyan-400 rounded-3xl animate-ping opacity-20"></div>

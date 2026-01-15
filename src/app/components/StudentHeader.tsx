@@ -1,5 +1,5 @@
 import { Settings, Bell } from 'lucide-react';
-import { FloatingStar } from './CartoonIllustrations';
+import { FloatingStar, GameController, WavingHand, HeroCharacter } from './CartoonIllustrations';
 
 export function StudentHeader() {
   return (
@@ -16,11 +16,12 @@ export function StudentHeader() {
           {/* Logo & Greeting */}
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg transform rotate-6">
-              <span className="text-2xl transform -rotate-6">🎮</span>
+              <GameController className="w-8 h-6 text-white transform -rotate-6" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Hey, Alex! 👋
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
+                <span>Hey, Alex!</span>
+                <WavingHand className="w-6 h-7 text-purple-500" />
               </h1>
               <p className="text-sm text-gray-600">Ready to level up today?</p>
             </div>
@@ -36,7 +37,7 @@ export function StudentHeader() {
               <Settings className="w-5 h-5 text-gray-600" />
             </button>
             <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-md border-2 border-white">
-              <span className="text-xl">🦸</span>
+              <HeroCharacter className="w-7 h-8 text-white" />
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { Swords, Sparkles, Users } from 'lucide-react';
-import { FloatingStar } from './CartoonIllustrations';
+import { FloatingStar, GameController } from './CartoonIllustrations';
 
 const games = [
   {
@@ -42,8 +42,8 @@ export function MiniGames() {
     <section className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <span className="text-3xl">🎮</span>
-          Mini Games
+          <GameController className="w-8 h-6 text-purple-500" />
+          <span>Mini Games</span>
         </h2>
         <span className="text-sm text-purple-600 font-semibold bg-purple-100 px-3 py-1.5 rounded-full">
           3 Available

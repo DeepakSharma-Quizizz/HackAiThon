@@ -1,38 +1,50 @@
 import { useState } from 'react';
 import { Calendar, Trophy, Target, TrendingUp } from 'lucide-react';
-import { RocketShip, FloatingStar } from './CartoonIllustrations';
+import { RocketShip, FloatingStar, MathIcon, ScienceIcon, HistoryIcon, EnglishIcon, GeographyIcon, BookCharacter } from './CartoonIllustrations';
+
+const getSubjectIcon = (subject: string) => {
+  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+    'Mathematics': MathIcon,
+    'Math': MathIcon,
+    'Science': ScienceIcon,
+    'History': HistoryIcon,
+    'English': EnglishIcon,
+    'Geography': GeographyIcon,
+  };
+  return iconMap[subject] || BookCharacter;
+};
 
 const journeyData = {
   5: [
-    { id: 1, game: 'Math Challenge', subject: 'Mathematics', accuracy: 92, date: '2 hours ago', emoji: '📐', color: 'blue' },
-    { id: 2, game: 'Science Quiz', subject: 'Science', accuracy: 88, date: 'Yesterday', emoji: '🔬', color: 'green' },
-    { id: 3, game: 'History Hunt', subject: 'History', accuracy: 95, date: '2 days ago', emoji: '📚', color: 'purple' },
-    { id: 4, game: 'Vocab Master', subject: 'English', accuracy: 85, date: '3 days ago', emoji: '📝', color: 'orange' },
-    { id: 5, game: 'Geo Explorer', subject: 'Geography', accuracy: 90, date: '4 days ago', emoji: '🌍', color: 'cyan' },
+    { id: 1, game: 'Math Challenge', subject: 'Mathematics', accuracy: 92, date: '2 hours ago', iconType: 'Math', color: 'blue' },
+    { id: 2, game: 'Science Quiz', subject: 'Science', accuracy: 88, date: 'Yesterday', iconType: 'Science', color: 'green' },
+    { id: 3, game: 'History Hunt', subject: 'History', accuracy: 95, date: '2 days ago', iconType: 'History', color: 'purple' },
+    { id: 4, game: 'Vocab Master', subject: 'English', accuracy: 85, date: '3 days ago', iconType: 'English', color: 'orange' },
+    { id: 5, game: 'Geo Explorer', subject: 'Geography', accuracy: 90, date: '4 days ago', iconType: 'Geography', color: 'cyan' },
   ],
   10: [
-    { id: 1, game: 'Math Challenge', subject: 'Mathematics', accuracy: 92, date: '2 hours ago', emoji: '📐', color: 'blue' },
-    { id: 2, game: 'Science Quiz', subject: 'Science', accuracy: 88, date: 'Yesterday', emoji: '🔬', color: 'green' },
-    { id: 3, game: 'History Hunt', subject: 'History', accuracy: 95, date: '2 days ago', emoji: '📚', color: 'purple' },
-    { id: 4, game: 'Vocab Master', subject: 'English', accuracy: 85, date: '3 days ago', emoji: '📝', color: 'orange' },
-    { id: 5, game: 'Geo Explorer', subject: 'Geography', accuracy: 90, date: '4 days ago', emoji: '🌍', color: 'cyan' },
-    { id: 6, game: 'Physics Fun', subject: 'Science', accuracy: 87, date: '5 days ago', emoji: '⚡', color: 'yellow' },
-    { id: 7, game: 'Math Sprint', subject: 'Mathematics', accuracy: 93, date: '6 days ago', emoji: '🧮', color: 'blue' },
-    { id: 8, game: 'Bio Battle', subject: 'Science', accuracy: 91, date: '7 days ago', emoji: '🧬', color: 'green' },
-    { id: 9, game: 'Grammar Game', subject: 'English', accuracy: 89, date: '8 days ago', emoji: '✍️', color: 'orange' },
-    { id: 10, game: 'Ancient Quest', subject: 'History', accuracy: 94, date: '9 days ago', emoji: '🏛️', color: 'purple' },
+    { id: 1, game: 'Math Challenge', subject: 'Mathematics', accuracy: 92, date: '2 hours ago', iconType: 'Math', color: 'blue' },
+    { id: 2, game: 'Science Quiz', subject: 'Science', accuracy: 88, date: 'Yesterday', iconType: 'Science', color: 'green' },
+    { id: 3, game: 'History Hunt', subject: 'History', accuracy: 95, date: '2 days ago', iconType: 'History', color: 'purple' },
+    { id: 4, game: 'Vocab Master', subject: 'English', accuracy: 85, date: '3 days ago', iconType: 'English', color: 'orange' },
+    { id: 5, game: 'Geo Explorer', subject: 'Geography', accuracy: 90, date: '4 days ago', iconType: 'Geography', color: 'cyan' },
+    { id: 6, game: 'Physics Fun', subject: 'Science', accuracy: 87, date: '5 days ago', iconType: 'Science', color: 'yellow' },
+    { id: 7, game: 'Math Sprint', subject: 'Mathematics', accuracy: 93, date: '6 days ago', iconType: 'Math', color: 'blue' },
+    { id: 8, game: 'Bio Battle', subject: 'Science', accuracy: 91, date: '7 days ago', iconType: 'Science', color: 'green' },
+    { id: 9, game: 'Grammar Game', subject: 'English', accuracy: 89, date: '8 days ago', iconType: 'English', color: 'orange' },
+    { id: 10, game: 'Ancient Quest', subject: 'History', accuracy: 94, date: '9 days ago', iconType: 'History', color: 'purple' },
   ],
   30: [
-    { id: 1, game: 'Math Challenge', subject: 'Mathematics', accuracy: 92, date: '2 hours ago', emoji: '📐', color: 'blue' },
-    { id: 2, game: 'Science Quiz', subject: 'Science', accuracy: 88, date: 'Yesterday', emoji: '🔬', color: 'green' },
-    { id: 3, game: 'History Hunt', subject: 'History', accuracy: 95, date: '2 days ago', emoji: '📚', color: 'purple' },
-    { id: 4, game: 'Vocab Master', subject: 'English', accuracy: 85, date: '3 days ago', emoji: '📝', color: 'orange' },
-    { id: 5, game: 'Geo Explorer', subject: 'Geography', accuracy: 90, date: '4 days ago', emoji: '🌍', color: 'cyan' },
-    { id: 6, game: 'Physics Fun', subject: 'Science', accuracy: 87, date: '5 days ago', emoji: '⚡', color: 'yellow' },
-    { id: 7, game: 'Math Sprint', subject: 'Mathematics', accuracy: 93, date: '1 week ago', emoji: '🧮', color: 'blue' },
-    { id: 8, game: 'Bio Battle', subject: 'Science', accuracy: 91, date: '2 weeks ago', emoji: '🧬', color: 'green' },
-    { id: 9, game: 'Grammar Game', subject: 'English', accuracy: 89, date: '2 weeks ago', emoji: '✍️', color: 'orange' },
-    { id: 10, game: 'Ancient Quest', subject: 'History', accuracy: 94, date: '3 weeks ago', emoji: '🏛️', color: 'purple' },
+    { id: 1, game: 'Math Challenge', subject: 'Mathematics', accuracy: 92, date: '2 hours ago', iconType: 'Math', color: 'blue' },
+    { id: 2, game: 'Science Quiz', subject: 'Science', accuracy: 88, date: 'Yesterday', iconType: 'Science', color: 'green' },
+    { id: 3, game: 'History Hunt', subject: 'History', accuracy: 95, date: '2 days ago', iconType: 'History', color: 'purple' },
+    { id: 4, game: 'Vocab Master', subject: 'English', accuracy: 85, date: '3 days ago', iconType: 'English', color: 'orange' },
+    { id: 5, game: 'Geo Explorer', subject: 'Geography', accuracy: 90, date: '4 days ago', iconType: 'Geography', color: 'cyan' },
+    { id: 6, game: 'Physics Fun', subject: 'Science', accuracy: 87, date: '5 days ago', iconType: 'Science', color: 'yellow' },
+    { id: 7, game: 'Math Sprint', subject: 'Mathematics', accuracy: 93, date: '1 week ago', iconType: 'Math', color: 'blue' },
+    { id: 8, game: 'Bio Battle', subject: 'Science', accuracy: 91, date: '2 weeks ago', iconType: 'Science', color: 'green' },
+    { id: 9, game: 'Grammar Game', subject: 'English', accuracy: 89, date: '2 weeks ago', iconType: 'English', color: 'orange' },
+    { id: 10, game: 'Ancient Quest', subject: 'History', accuracy: 94, date: '3 weeks ago', iconType: 'History', color: 'purple' },
   ],
 };
 
@@ -62,8 +74,8 @@ export function QuizizzJourney() {
       <div className="relative z-10">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <span className="text-3xl">🚀</span>
-          Your Learning Journey
+          <RocketShip className="w-8 h-10 text-purple-500" />
+          <span>Your Learning Journey</span>
         </h2>
         <Calendar className="w-6 h-6 text-purple-500" />
       </div>
@@ -99,8 +111,11 @@ export function QuizizzJourney() {
             <div className="flex items-center gap-4">
               {/* Timeline Dot */}
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                  {item.emoji}
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  {(() => {
+                    const IconComponent = getSubjectIcon(item.iconType || item.subject);
+                    return <IconComponent className="w-7 h-7 text-purple-600" />;
+                  })()}
                 </div>
                 {index < items.length - 1 && (
                   <div className="w-0.5 h-8 bg-purple-200 my-1"></div>

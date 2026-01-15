@@ -1,13 +1,24 @@
 import { TrendingUp, TrendingDown, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { BookCharacter, LightBulb, TrophyIcon } from './CartoonIllustrations';
+import { BookCharacter, LightBulb, TrophyIcon, ChartIcon, MathIcon, ScienceIcon, HistoryIcon, EnglishIcon, GeographyIcon } from './CartoonIllustrations';
+
+const getSubjectIcon = (subject: string) => {
+  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+    'Math': MathIcon,
+    'Science': ScienceIcon,
+    'History': HistoryIcon,
+    'English': EnglishIcon,
+    'Geography': GeographyIcon,
+  };
+  return iconMap[subject] || BookCharacter;
+};
 
 const subjectData = [
-  { subject: 'Math', accuracy: 92, color: '#3b82f6', emoji: '📐', status: 'strong' },
-  { subject: 'Science', accuracy: 88, color: '#10b981', emoji: '🔬', status: 'strong' },
-  { subject: 'History', accuracy: 95, color: '#8b5cf6', emoji: '📚', status: 'strong' },
-  { subject: 'English', accuracy: 85, color: '#f59e0b', emoji: '📝', status: 'improving' },
-  { subject: 'Geography', accuracy: 78, color: '#06b6d4', emoji: '🌍', status: 'needs_work' },
+  { subject: 'Math', accuracy: 92, color: '#3b82f6', status: 'strong' },
+  { subject: 'Science', accuracy: 88, color: '#10b981', status: 'strong' },
+  { subject: 'History', accuracy: 95, color: '#8b5cf6', status: 'strong' },
+  { subject: 'English', accuracy: 85, color: '#f59e0b', status: 'improving' },
+  { subject: 'Geography', accuracy: 78, color: '#06b6d4', status: 'needs_work' },
 ];
 
 export function PerformanceInsights() {
@@ -20,8 +31,8 @@ export function PerformanceInsights() {
     <section className="bg-white rounded-3xl p-6 shadow-lg border-4 border-blue-100">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <span className="text-3xl">📊</span>
-          Performance Insights
+          <ChartIcon className="w-8 h-6 text-purple-500" />
+          <span>Performance Insights</span>
         </h2>
         <div className="flex gap-2 bg-gray-100 rounded-xl p-1">
           <button
@@ -102,7 +113,10 @@ export function PerformanceInsights() {
                       </svg>
                       {/* Center content */}
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-2xl">{subject.emoji}</span>
+                        {(() => {
+                          const IconComponent = getSubjectIcon(subject.subject);
+                          return <IconComponent className="w-6 h-6 text-current" style={{ color: subject.color }} />;
+                        })()}
                         <span className="text-xs font-bold text-gray-700 mt-0.5">{subject.accuracy}%</span>
                       </div>
                     </div>
@@ -205,14 +219,17 @@ export function PerformanceInsights() {
               <h3 className="font-bold text-green-800">You're crushing it!</h3>
             </div>
           <div className="space-y-2">
-            {strongSubjects.map((subject) => (
-              <div key={subject.subject} className="flex items-center gap-2">
-                <span className="text-xl">{subject.emoji}</span>
-                <span className="text-sm font-medium text-green-700">
-                  {subject.subject}: {subject.accuracy}%
-                </span>
-              </div>
-            ))}
+            {strongSubjects.map((subject) => {
+              const IconComponent = getSubjectIcon(subject.subject);
+              return (
+                <div key={subject.subject} className="flex items-center gap-2">
+                  <IconComponent className="w-5 h-5 text-green-600" />
+                  <span className="text-sm font-medium text-green-700">
+                    {subject.subject}: {subject.accuracy}%
+                  </span>
+                </div>
+              );
+            })}
           </div>
           </div>
         </div>
@@ -227,14 +244,17 @@ export function PerformanceInsights() {
               <h3 className="font-bold text-orange-800">Room to grow 🌱</h3>
             </div>
             <div className="space-y-2">
-              {needsWork.map((subject) => (
-                <div key={subject.subject} className="flex items-center gap-2">
-                  <span className="text-xl">{subject.emoji}</span>
-                  <span className="text-sm font-medium text-orange-700">
-                    {subject.subject}: {subject.accuracy}%
-                  </span>
-                </div>
-              ))}
+              {needsWork.map((subject) => {
+                const IconComponent = getSubjectIcon(subject.subject);
+                return (
+                  <div key={subject.subject} className="flex items-center gap-2">
+                    <IconComponent className="w-5 h-5 text-orange-600" />
+                    <span className="text-sm font-medium text-orange-700">
+                      {subject.subject}: {subject.accuracy}%
+                    </span>
+                  </div>
+                );
+              })}
               <p className="text-xs text-orange-600 mt-2 italic">
                 A few more practice rounds and you'll be unstoppable!
               </p>

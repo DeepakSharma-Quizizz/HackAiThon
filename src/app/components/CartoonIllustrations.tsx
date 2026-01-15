@@ -131,6 +131,202 @@ export function LightBulb({ className = "" }: { className?: string }) {
   );
 }
 
+export function GameController({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 60 50" fill="none">
+      {/* Controller body */}
+      <rect x="10" y="15" width="40" height="25" rx="5" fill="currentColor" opacity="0.6" />
+      <rect x="12" y="17" width="36" height="21" rx="3" fill="currentColor" opacity="0.8" />
+      {/* Buttons */}
+      <circle cx="22" cy="27" r="4" fill="white" opacity="0.9" />
+      <circle cx="38" cy="27" r="4" fill="white" opacity="0.9" />
+      {/* D-pad */}
+      <rect x="15" y="20" width="6" height="2" rx="1" fill="white" opacity="0.9" />
+      <rect x="17" y="18" width="2" height="6" rx="1" fill="white" opacity="0.9" />
+      {/* Handles */}
+      <ellipse cx="5" cy="25" rx="4" ry="8" fill="currentColor" opacity="0.5" />
+      <ellipse cx="55" cy="25" rx="4" ry="8" fill="currentColor" opacity="0.5" />
+    </svg>
+  );
+}
+
+export function RobotCharacter({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 60 70" fill="none">
+      {/* Head */}
+      <rect x="15" y="5" width="30" height="30" rx="5" fill="currentColor" opacity="0.6" />
+      <rect x="17" y="7" width="26" height="26" rx="3" fill="currentColor" opacity="0.8" />
+      {/* Eyes */}
+      <circle cx="25" cy="18" r="4" fill="white" opacity="0.9" />
+      <circle cx="35" cy="18" r="4" fill="white" opacity="0.9" />
+      <circle cx="25" cy="18" r="2" fill="currentColor" opacity="0.7" />
+      <circle cx="35" cy="18" r="2" fill="currentColor" opacity="0.7" />
+      {/* Antenna */}
+      <circle cx="30" cy="5" r="3" fill="currentColor" opacity="0.6" />
+      <line x1="30" y1="5" x2="30" y2="8" stroke="currentColor" strokeWidth="2" opacity="0.6" />
+      {/* Body */}
+      <rect x="12" y="35" width="36" height="30" rx="5" fill="currentColor" opacity="0.6" />
+      <rect x="14" y="37" width="32" height="26" rx="3" fill="currentColor" opacity="0.8" />
+      {/* Buttons */}
+      <circle cx="22" cy="48" r="2.5" fill="white" opacity="0.9" />
+      <circle cx="30" cy="48" r="2.5" fill="white" opacity="0.9" />
+      <circle cx="38" cy="48" r="2.5" fill="white" opacity="0.9" />
+    </svg>
+  );
+}
+
+export function WavingHand({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 60" fill="none">
+      {/* Hand */}
+      <ellipse cx="25" cy="35" rx="12" ry="18" fill="currentColor" opacity="0.6" />
+      {/* Fingers */}
+      <ellipse cx="15" cy="20" rx="4" ry="8" fill="currentColor" opacity="0.7" />
+      <ellipse cx="20" cy="18" rx="4" ry="8" fill="currentColor" opacity="0.7" />
+      <ellipse cx="25" cy="16" rx="4" ry="8" fill="currentColor" opacity="0.7" />
+      <ellipse cx="30" cy="18" rx="4" ry="8" fill="currentColor" opacity="0.7" />
+      <ellipse cx="35" cy="20" rx="4" ry="8" fill="currentColor" opacity="0.7" />
+      {/* Wrist */}
+      <rect x="20" y="45" width="10" height="12" rx="2" fill="currentColor" opacity="0.5" />
+    </svg>
+  );
+}
+
+export function HeroCharacter({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 60" fill="none">
+      {/* Head */}
+      <circle cx="25" cy="15" r="10" fill="currentColor" opacity="0.6" />
+      <circle cx="25" cy="15" r="8" fill="currentColor" opacity="0.8" />
+      {/* Eyes */}
+      <circle cx="22" cy="13" r="1.5" fill="white" />
+      <circle cx="28" cy="13" r="1.5" fill="white" />
+      {/* Smile */}
+      <path d="M20 18 Q25 21 30 18" stroke="white" strokeWidth="1.5" fill="none" />
+      {/* Body */}
+      <path d="M25 25 L20 45 L25 50 L30 45 Z" fill="currentColor" opacity="0.6" />
+      {/* Cape */}
+      <path d="M20 30 Q15 35 12 40 Q10 45 15 50 Q20 48 25 50" fill="currentColor" opacity="0.4" />
+      <path d="M30 30 Q35 35 38 40 Q40 45 35 50 Q30 48 25 50" fill="currentColor" opacity="0.4" />
+      {/* Star on chest */}
+      <path d="M25 32 L26 36 L30 36 L27 38 L28 42 L25 40 L22 42 L23 38 L20 36 L24 36 Z" fill="white" opacity="0.8" />
+    </svg>
+  );
+}
+
+export function ChartIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 60 50" fill="none">
+      {/* Chart bars */}
+      <rect x="8" y="30" width="8" height="15" rx="2" fill="currentColor" opacity="0.6" />
+      <rect x="20" y="20" width="8" height="25" rx="2" fill="currentColor" opacity="0.7" />
+      <rect x="32" y="15" width="8" height="30" rx="2" fill="currentColor" opacity="0.8" />
+      <rect x="44" y="25" width="8" height="20" rx="2" fill="currentColor" opacity="0.6" />
+      {/* Base line */}
+      <line x1="5" y1="45" x2="55" y2="45" stroke="currentColor" strokeWidth="2" opacity="0.3" />
+    </svg>
+  );
+}
+
+export function MathIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 50" fill="none">
+      {/* Calculator/Ruler shape */}
+      <rect x="8" y="12" width="34" height="26" rx="2" fill="currentColor" opacity="0.4" />
+      <rect x="10" y="14" width="30" height="22" rx="1" fill="white" opacity="0.8" />
+      {/* Math symbols */}
+      <path d="M18 22 L22 22 M20 20 L20 24" stroke="currentColor" strokeWidth="2" opacity="0.6" />
+      <path d="M28 22 L32 26 M32 22 L28 26" stroke="currentColor" strokeWidth="2" opacity="0.6" />
+      <circle cx="38" cy="24" r="3" fill="currentColor" opacity="0.6" />
+    </svg>
+  );
+}
+
+export function ScienceIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 60" fill="none">
+      {/* Flask */}
+      <path d="M20 5 L15 45 L35 45 L30 5 Z" fill="currentColor" opacity="0.4" />
+      <path d="M22 8 L18 42 L32 42 L28 8 Z" fill="currentColor" opacity="0.6" />
+      {/* Liquid */}
+      <ellipse cx="25" cy="35" rx="6" ry="3" fill="currentColor" opacity="0.8" />
+      {/* Bubbles */}
+      <circle cx="23" cy="25" r="2" fill="white" opacity="0.6" />
+      <circle cx="27" cy="28" r="1.5" fill="white" opacity="0.6" />
+    </svg>
+  );
+}
+
+export function HistoryIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 50" fill="none">
+      {/* Book */}
+      <rect x="12" y="10" width="26" height="32" rx="2" fill="currentColor" opacity="0.4" />
+      <rect x="14" y="12" width="22" height="28" rx="1" fill="white" opacity="0.8" />
+      <line x1="25" y1="12" x2="25" y2="40" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      {/* Clock */}
+      <circle cx="25" cy="24" r="8" fill="currentColor" opacity="0.3" />
+      <circle cx="25" cy="24" r="6" fill="white" opacity="0.9" />
+      <line x1="25" y1="24" x2="25" y2="20" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+      <line x1="25" y1="24" x2="28" y2="24" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+    </svg>
+  );
+}
+
+export function EnglishIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 50" fill="none">
+      {/* Pencil/Pen */}
+      <path d="M15 35 L20 30 L25 35 L30 30 L25 25 L20 30 Z" fill="currentColor" opacity="0.5" />
+      <rect x="18" y="12" width="4" height="18" rx="1" fill="currentColor" opacity="0.6" />
+      {/* Paper */}
+      <rect x="10" y="8" width="30" height="35" rx="1" fill="white" opacity="0.9" />
+      <rect x="12" y="10" width="26" height="31" rx="0.5" fill="currentColor" opacity="0.1" />
+      {/* Lines */}
+      <line x1="15" y1="15" x2="35" y2="15" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+      <line x1="15" y1="20" x2="30" y2="20" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+      <line x1="15" y1="25" x2="32" y2="25" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+    </svg>
+  );
+}
+
+export function GeographyIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 50" fill="none">
+      {/* Globe */}
+      <circle cx="25" cy="25" r="18" fill="currentColor" opacity="0.3" />
+      <circle cx="25" cy="25" r="16" fill="white" opacity="0.8" />
+      {/* Latitude lines */}
+      <ellipse cx="25" cy="25" rx="16" ry="4" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      <ellipse cx="25" cy="25" rx="16" ry="8" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      {/* Longitude lines */}
+      <ellipse cx="25" cy="25" rx="4" ry="16" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      <ellipse cx="25" cy="25" rx="8" ry="16" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      {/* Continents */}
+      <path d="M15 20 Q18 18 20 20 Q22 22 20 24 Q18 26 15 24 Z" fill="currentColor" opacity="0.4" />
+      <path d="M30 28 Q32 26 35 28 Q33 30 30 30 Z" fill="currentColor" opacity="0.4" />
+    </svg>
+  );
+}
+
+export function CrownIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 50 40" fill="none">
+      {/* Crown base */}
+      <path d="M5 30 L10 20 L15 25 L20 15 L25 20 L30 15 L35 20 L40 25 L45 20 L50 30 Z" fill="currentColor" opacity="0.6" />
+      <path d="M8 28 L12 20 L18 24 L22 18 L25 20 L28 18 L32 24 L38 20 L42 28 Z" fill="currentColor" opacity="0.8" />
+      {/* Crown points */}
+      <path d="M15 15 L18 10 L21 15" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.7" />
+      <path d="M25 12 L28 7 L31 12" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.7" />
+      <path d="M35 15 L38 10 L41 15" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.7" />
+      {/* Gems */}
+      <circle cx="18" cy="12" r="2" fill="white" opacity="0.9" />
+      <circle cx="28" cy="9" r="2.5" fill="white" opacity="0.9" />
+      <circle cx="38" cy="12" r="2" fill="white" opacity="0.9" />
+    </svg>
+  );
+}
+
 export function BackgroundDecorations() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
